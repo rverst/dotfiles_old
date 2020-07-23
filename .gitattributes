@@ -1,0 +1,8 @@
+* text=lf
+
+*.zsh text eol=lf
+*.brewfile text eol=lf
+*.config text eol=lf
+*.symlink text eol=lf
+
+install text eol=lf
