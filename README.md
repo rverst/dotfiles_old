@@ -19,7 +19,7 @@ and [neovim](https://neovim.io) in combination with some other awesome tools lik
 
 2)  Install the dotfiles
 ```console
-> ~/.config/dotfiles/install
+> ~/.config/dotfiles/script/bootstrap
 ```
 
 The dotfiles can be installed in two flavors, `full` and `light`. I use
