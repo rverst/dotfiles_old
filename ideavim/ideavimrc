@@ -1,0 +1,63 @@
+""" .vimrc for ideavim-plugin (https://github.com/JetBrains/ideavim)
+""" Map leader to comma
+let mapleader=","
+
+""" Vim plugins
+
+set surround
+
+""" Common settings
+set hlsearch
+set clipboard=ideaput
+
+set number relativenumber
+set smartcase
+set incsearch
+set ruler
+set autoindent
+set showcmd
+set showmode
+
+
+""" Idea settings
+set ideajoin
+
+""" Mappings
+map <leader>a :action QuickActions<CR>
+map <leader>e :action GotoNextError<CR>
+map <leader>f :action QuickFixes<CR>
+map <leader>g :action Generate<CR>
+map <leader>r :action RenameElement<CR>
+map <leader>s :action SurroundWith<CR>
+map <leader>R :action RefactoringMenu<CR>
+map <leader>b :action GotoDeclaration<CR>
+map <leader>c :action CommentByLineComment<CR>
+map <leader>C :action CommentByBlockComment<CR>
+
+map \r :action ReformatCode<CR>
+map \b :action ToggleLineBreakpoint<CR>
+
+map \BB :action ToggleBookmark<CR>
+map \B0 :action ToggleBookmark0<CR>
+map \B1 :action ToggleBookmark1<CR>
+map \B2 :action ToggleBookmark2<CR>
+map \B3 :action ToggleBookmark3<CR>
+map \B4 :action ToggleBookmark4<CR>
+map \B5 :action ToggleBookmark5<CR>
+map \B6 :action ToggleBookmark6<CR>
+map \B7 :action ToggleBookmark7<CR>
+map \B8 :action ToggleBookmark8<CR>
+map \B9 :action ToggleBookmark9<CR>
+
+map \Gn :action GotoNextBookmark<CR>
+map \GN :action GotoPreviousBookmark<CR>
+map \G0 :action GotoBookmark0<CR>
+map \G1 :action GotoBookmark1<CR>
+map \G2 :action GotoBookmark2<CR>
+map \G3 :action GotoBookmark3<CR>
+map \G4 :action GotoBookmark4<CR>
+map \G5 :action GotoBookmark5<CR>
+map \G6 :action GotoBookmark6<CR>
+map \G7 :action GotoBookmark7<CR>
+map \G8 :action GotoBookmark8<CR>
+map \G9 :action GotoBookmark9<CR>

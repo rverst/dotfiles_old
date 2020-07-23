@@ -1,0 +1,20 @@
+tap "homebrew/bundle"
+tap "homebrew/cask"
+tap "homebrew/cask-versions"
+tap "homebrew/core"
+tap "homebrew/services"
+tap "eth-p/software"
+
+brew "nodejs"				        # NodeJS
+brew "yarn"                                     # Package manager for NodeJS
+brew "openfortivpn"   				# A client for PPP+SSL VPN tunnel services, compatible with Fortinet VPNs (https://github.com/adrienverge/openfortivpn)
+brew "openjdk"        				# Java
+brew "syncthing"      				# A continuous file synchronization program (https://github.com/syncthing/syncthing)
+brew "youtube-dl"                               # Download videos/audio from youtube and others
+
+cask "firefox"        				# Best Browser
+cask "chromium"       				# Another Browser
+cask "vscodium"      				# Nice and fast IDE/Editor in its 'clean' edition
+cask "docker"         				# This container thingy
+cask "goland"        				# Nice IDE for go made by JetBrains
+

@@ -1,0 +1,46 @@
+#!/usr/bin/env zsh
+# install ssh config
+#
+
+set -eu
+#set -o xtrace
+# set `magic` variables for current file and dir
+__dir="$(cd "$(dirname "$0")" && pwd)"
+__file="${__dir}/$(basename "$0")"
+__base="$(basename ${__file})"
+__root="$(cd "$(dirname "${__dir}")" && pwd)"
+source "$__root/script/functions"
+
+UPD=0
+BREW=0
+FLAV="light"
+while [ "${1-}" != "" ]; do
+  case $1 in
+    --update ) UPD=1 ;;
+    --brew )  BREW=1 ;;
+    --light ) FLAV="light" ;;
+    --full )  FLAV="full" ;;
+  esac
+  shift
+done
+
+info "Installing ssh config"
+
+[ -L "$HOME/.ssh/config" ] && rm "$HOME/.ssh/config"
+[ -f "$HOME/.ssh/config" ] && mv "$HOME/.ssh/config" "$HOME/.ssh/config.local"
+[ -f "$HOME/.ssh/config.local" ] || touch "$HOME/.ssh/config.local"
+
+info "Use '$HOME/.ssh/config.local' for individual configuration"
+
+if [[ $DOT_KERNEL == "darwin" ]]; then
+  # macOS install
+  link_file "$DOTFILES/ssh/Darwin.config" "$HOME/.ssh/config"
+elif [[ $DOT_KERNEL == "linux" ]]; then
+  # linux install
+  link_file "$DOTFILES/ssh/Linux.config" "$HOME/.ssh/config"
+else
+  warn "Not implemented for your platform"
+fi
+
+success "Done"
+

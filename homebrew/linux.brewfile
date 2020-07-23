@@ -1,0 +1,25 @@
+tap "homebrew/bundle"
+tap "homebrew/core"
+tap "homebrew/services"
+tap "eth-p/software"
+
+brew "antibody"       				# fast shell plugin manager (https://github.com/getantibody/antibody)
+brew "bat"            				# A cat(1) clone with wings (https://github.com/sharkdp/bat)
+brew "bat-extras"     				# Bash scripts that integrate bat with various command line tools (https://github.com/eth-p/bat-extras)
+brew "diff-so-fancy"  				# Good-lookin' diffs with diff-highlight and more
+brew "fd"             				# A simple, fast and user-friendly alternative to find (https://github.com/sharkdp/fd)
+brew "fzf"            				# Command-line fuzzy finder (https://github.com/junegunn/fzf)
+brew "go"             				# Open source programming language to build simple/reliable/efficient software
+brew "goreleaser"     				# Deliver Go binaries as fast and easily as possible
+brew "htop"           				# Process manager
+brew "jq"             				# Lightweight and flexible command-line JSON processor
+brew "lazydocker"     				# A simple terminal UI for both docker and docker-compose (https://github.com/jesseduffield/lazydocker)
+brew "lazygit"        				# A simple terminal UI for git commands (https://github.com/jesseduffield/lazygit)
+brew "most"           				# more -> less > most
+brew "neofetch"	      				# System information
+brew "neovim"					# Editor
+brew "nmap"           				# Port scanner
+brew "ripgrep"        				# A line-oriented search tool that (https://github.com/burntsushi/ripgrep)
+brew "syncthing"      				# A continuous file synchronization program (https://github.com/syncthing/syncthing)
+brew "tldr"           				# Simplified and community-driven man pages
+

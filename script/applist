@@ -1,0 +1,14 @@
+# These are the apps that will be installed
+# or updated via apt-get/pacman when homebrew/linuxbrew 
+# is not used. Lines with an '#' will be ignored.
+zsh
+git
+curl
+jq
+build-essential
+file
+most
+fontconfig
+tldr
+unzip
+neofetch

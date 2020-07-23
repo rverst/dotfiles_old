@@ -1,0 +1,46 @@
+#!/usr/bin/env zsh
+# install openfortivpn
+#
+
+set -eu
+#set -o xtrace
+# set `magic` variables for current file and dir
+__dir="$(cd "$(dirname "$0")" && pwd)"
+__file="${__dir}/$(basename "$0")"
+__base="$(basename ${__file})"
+__root="$(cd "$(dirname "${__dir}")" && pwd)"
+source "$__root/script/functions"
+
+UPD=0
+BREW=0
+FLAV="light"
+while [ "${1-}" != "" ]; do
+  case $1 in
+    --update ) UPD=1 ;;
+    --brew )  BREW=1 ;;
+    --light ) FLAV="light" ;;
+    --full )  FLAV="full" ;;
+  esac
+  shift
+done
+
+info "Installing  ($FLAV)"
+
+if [[ $DOT_KERNEL == "darwin" ]] || [[ $BREW -eq 1 ]]; then
+  # macOS install
+  brew_install openfortivpn
+
+  [[ -d "$XDG_CONFIG_HOME/openfortivpn" ]] || mkdir "$XDG_CONFIG_HOME/openfortivpn"
+  info "******************************************"
+  info "* - cp your config and certificates to:"
+  info "* - $XDG_CONFIG_HOME/openfortivpn"
+  info "******************************************"
+elif [[ $DOT_KERNEL == "linux" ]]; then
+  # linux install
+  skip "Not implemented for your platform"
+else
+  warn "Not implemented for your platform"
+fi
+
+success "Done"
+

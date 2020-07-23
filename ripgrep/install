@@ -1,0 +1,52 @@
+#!/usr/bin/env zsh
+# install ripgrep
+# https://github.com/BurntSushi/ripgrep
+#
+
+set -eu
+#set -o xtrace
+# set `magic` variables for current file and dir
+__dir="$(cd "$(dirname "$0")" && pwd)"
+__file="${__dir}/$(basename "$0")"
+__base="$(basename ${__file})"
+__root="$(cd "$(dirname "${__dir}")" && pwd)"
+source "$__root/script/functions"
+
+UPD=0
+BREW=0
+FLAV="light"
+while [ "${1-}" != "" ]; do
+  case $1 in
+    --update ) UPD=1 ;;
+    --brew )  BREW=1 ;;
+    --light ) FLAV="light" ;;
+    --full )  FLAV="full" ;;
+  esac
+  shift
+done
+
+info "Installing ripgrep ($FLAV)"
+
+if [[ $DOT_KERNEL == "darwin" ]] || [[ $BREW -eq 1 ]]; then
+  # homebrew install
+  brew_install ripgrep
+elif [[ $DOT_KERNEL == "linux" ]]; then
+  # linux install
+  if [[ $DOT_VARIANT == "arch" ]]; then
+    linux_install ripgrep
+  else
+    local url=$(curl -s https://api.github.com/repos/BurntSushi/ripgrep/releases/latest | \
+      jq '.assets[] | select(.name | test("ripgrep(.+)_amd64.deb")) | .browser_download_url' | \
+      sed 's/"//g')
+
+    info $url
+    curl -Llo $XDG_RUNTIME_DIR/ripgrep.deb $url
+    sudo dpkg -i $XDG_RUNTIME_DIR/ripgrep.deb
+    rm -f $XDG_RUNTIME_DIR/ripgrep.deb
+  fi
+else
+  warn "Not implemented for your platform"
+fi
+
+success "Done"
+

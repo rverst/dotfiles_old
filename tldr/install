@@ -1,0 +1,45 @@
+#!/usr/bin/env zsh
+# install tldr++
+# https://github.com/isacikgoz/tldr
+#
+
+set -eu
+#set -o xtrace
+# set `magic` variables for current file and dir
+__dir="$(cd "$(dirname "$0")" && pwd)"
+__file="${__dir}/$(basename "$0")"
+__base="$(basename ${__file})"
+__root="$(cd "$(dirname "${__dir}")" && pwd)"
+source "$__root/script/functions"
+
+UPD=0
+BREW=0
+FLAV="light"
+while [ "${1-}" != "" ]; do
+  case $1 in
+    --update ) UPD=1 ;;
+    --brew )  BREW=1 ;;
+    --light ) FLAV="light" ;;
+    --full )  FLAV="full" ;;
+  esac
+  shift
+done
+
+info "Installing tldr ($FLAV)"
+
+if [[ $DOT_KERNEL == "darwin" ]] || [[ $DOT_KERNEL == "linux" ]]; then
+  url=$(curl -s -N https://api.github.com/repos/isacikgoz/tldr/releases/latest | \
+    jq '.assets[] | select(.name | test("tldr_(.+)_'$DOT_KERNEL'_amd64.tar.gz")) | .browser_download_url' | \
+    sed 's/"//g')
+
+  info $url
+  curl -Llo $XDG_RUNTIME_DIR/tldr.tar.gz $url
+  tar -xzf $XDG_RUNTIME_DIR/tldr.tar.gz -C "$XDG_LOCAL_BIN"
+  rm -f $XDG_RUNTIME_DIR/tldr.tar.gz
+  unset url
+else
+  warn "Not implemented for your platform"
+fi
+
+success "Done"
+

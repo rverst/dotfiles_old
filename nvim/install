@@ -1,0 +1,76 @@
+#!/usr/bin/env zsh
+# install
+#
+
+set -eu
+#set -o xtrace
+# set `magic` variables for current file and dir
+__dir="$(cd "$(dirname "$0")" && pwd)"
+__file="${__dir}/$(basename "$0")"
+__base="$(basename ${__file})"
+__root="$(cd "$(dirname "${__dir}")" && pwd)"
+source "$__root/script/functions"
+
+UPD=0
+BREW=0
+FLAV="light"
+while [ "${1-}" != "" ]; do
+  case $1 in
+    --update ) UPD=1 ;;
+    --brew )  BREW=1 ;;
+    --light ) FLAV="light" ;;
+    --full )  FLAV="full" ;;
+  esac
+  shift
+done
+
+info "Installing neovim ($FLAV)"
+
+if [[ $DOT_KERNEL == "darwin" ]] || [[ $BREW -eq 1 ]]; then
+  # macOS install
+  if [[ $FLAV == "full" ]]; then
+    brew_install nodejs yarn
+  fi
+  brew_install neovim
+elif [[ $DOT_KERNEL == "linux" ]]; then
+  if [[ $FLAV == "full" ]]; then
+    linux_install -s nodejs yarnpkg
+  fi
+  if [[ $DOT_VARIANT == "arch" ]]; then
+    linux_install -s neovim python-pynvim
+  else
+    linux_install -s python3-neovim
+    local url=$(curl -s https://api.github.com/repos/neovim/neovim/releases/latest | \
+      jq '.assets[] | select(.name | test("nvim.appimage$")) | .browser_download_url' | \
+      sed 's/"//g')
+
+    CUSTOM_NVIM_PATH="$XDG_LOCAL_BIN/nvim.appimage"
+    curl -Llo "$CUSTOM_NVIM_PATH" $url
+    chmod +x "$CUSTOM_NVIM_PATH"
+    link_file "$CUSTOM_NVIM_PATH" "$XDG_LOCAL_BIN/nvim"
+
+    sudo update-alternatives --install /usr/bin/ex ex "${CUSTOM_NVIM_PATH}" 110
+    sudo update-alternatives --install /usr/bin/vi vi "${CUSTOM_NVIM_PATH}" 110
+    sudo update-alternatives --install /usr/bin/view view "${CUSTOM_NVIM_PATH}" 110
+    sudo update-alternatives --install /usr/bin/vim vim "${CUSTOM_NVIM_PATH}" 110
+    sudo update-alternatives --install /usr/bin/vimdiff vimdiff "${CUSTOM_NVIM_PATH}" 110
+  fi
+
+else
+  warn "Not implemented for your platform"
+  exit 0
+fi
+
+
+python3 -m pip install pynvim
+
+[[ -d "$XDG_CONFIG_HOME/nvim" ]] || mkdir "$XDG_CONFIG_HOME/nvim"
+
+link_file "$DOTFILES/nvim/init.$FLAV.vim" "$XDG_CONFIG_HOME/nvim/init.vim"
+link_file "$DOTFILES/nvim/spell/" "$XDG_CONFIG_HOME/nvim/"
+if [[ $FLAV == "full" ]]; then
+  link_file "$DOTFILES/nvim/coc-settings.json" "$XDG_CONFIG_HOME/nvim/coc-settings.json"
+fi
+
+success "Done"
+

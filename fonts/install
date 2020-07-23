@@ -1,0 +1,119 @@
+#!/usr/bin/env zsh
+# install hack-font (https://sourcefoundry.org/hack/),
+# using homebrew on mac, needs package `fontconfig` on linux
+#
+
+set -eu
+#set -o xtrace
+# set `magic` variables for current file and dir
+__dir="$(cd "$(dirname "$0")" && pwd)"
+__file="${__dir}/$(basename "$0")"
+__base="$(basename ${__file})"
+__root="$(cd "$(dirname "${__dir}")" && pwd)"
+source "$__root/script/functions"
+
+UPD=0
+BREW=0
+FLAV="light"
+while [ "${1-}" != "" ]; do
+  case $1 in
+    --update ) UPD=1 ;;
+    --brew )  BREW=1 ;;
+    --light ) FLAV="light" ;;
+    --full )  FLAV="full" ;;
+    --no-fonts ) skip "Skip installing fonts"
+      exit 0;;
+  esac
+  shift
+done
+
+info "Installing fonts ($FLAV)"
+
+if [[ $DOT_KERNEL == "darwin" ]] || [[ $BREW -eq 1 ]]; then
+
+  brew_cask_install "font-hack" # nice monotype font (https://sourcefoundry.org/hack/)
+  brew_cask_install "font-source-code-pro"
+  brew_cask_install "font-iosevka" # Coders’ typeface, built from code. (https://github.com/be5invis/Iosevka)
+  brew_cask_install "font-iosevka-aile"
+  brew_cask_install "font-iosevka-etoile"
+  brew_cask_install "font-iosevka-sparkle"
+  brew_cask_install "font-iosevka-curly"
+
+elif [[ $DOT_KERNEL == "linux" ]]; then
+
+  if [[ -z $(command -v fc-cache) ]]; then
+    linux_install -s fontconfig
+  fi
+  if [[ -z $(command -v unzip) ]]; then
+    linux_install -s unzip
+  fi
+
+  local hack_ver="3.003"
+  local iosevka_ver="3.3.1"
+
+  target="$XDG_DATA_HOME/fonts/"
+  [[ -f "$target" ]] || mkdir -p "$target"
+
+  info "Installing 'hack'"
+  curl -Llo $XDG_RUNTIME_DIR/hack.tar.gz "https://github.com/source-foundry/hack/releases/download/v$hack_ver/hack-v$hack_ver-ttf.tar.gz"
+  tar -xzf $XDG_RUNTIME_DIR/hack.tar.gz -C "$target"
+  rm $XDG_RUNTIME_DIR/hack.tar.gz
+  echo ""
+
+  if [[ $FLAV == "full" ]]; then
+    info "Installing 'iosevka'"
+    curl -Llo $XDG_RUNTIME_DIR/iosevka.zip https://github.com/be5invis/Iosevka/releases/download/v$iosevka_ver/pkg-iosevka-$iosevka_ver.zip
+    unzip -o $XDG_RUNTIME_DIR/iosevka.zip -d "$target" > /dev/null
+    rm $XDG_RUNTIME_DIR/iosevka.zip
+    echo ""
+  else
+    skip "Skipping 'iosevka' because of $FLAV install"
+  fi
+
+  if [[ $FLAV == "full" ]]; then
+    info "Installing 'iosevka curly'"
+    curl -Llo $XDG_RUNTIME_DIR/iosevka-curly.zip https://github.com/be5invis/Iosevka/releases/download/v$iosevka_ver/pkg-iosevka-curly-$iosevka_ver.zip
+    unzip -o $XDG_RUNTIME_DIR/iosevka-curly.zip -d "$target" > /dev/null
+    rm $XDG_RUNTIME_DIR/iosevka-curly.zip
+    echo ""
+  else
+    skip "Skipping 'iosevka curly' because of $FLAV install"
+  fi
+
+  if [[ $FLAV == "full" ]]; then
+    info "Installing 'iosevka aile'"
+    curl -Llo $XDG_RUNTIME_DIR/iosevka-aile.zip https://github.com/be5invis/Iosevka/releases/download/v$iosevka_ver/pkg-iosevka-aile-$iosevka_ver.zip
+    unzip -o $XDG_RUNTIME_DIR/iosevka-aile.zip -d "$target" > /dev/null
+    rm $XDG_RUNTIME_DIR/iosevka-aile.zip
+    echo ""
+  else
+    skip "Skipping 'iosevka aile' because of $FLAV install"
+  fi
+
+  if [[ $FLAV == "full" ]]; then
+    info "Installing 'iosevka etoile'"
+    curl -Llo $XDG_RUNTIME_DIR/iosevka-etoile.zip https://github.com/be5invis/Iosevka/releases/download/v$iosevka_ver/pkg-iosevka-etoile-$iosevka_ver.zip
+    unzip -o $XDG_RUNTIME_DIR/iosevka-etoile.zip -d "$target" > /dev/null
+    rm $XDG_RUNTIME_DIR/iosevka-etoile.zip
+    echo ""
+  else
+    skip "Skipping 'iosevka eotile' because of $FLAV install"
+  fi
+
+  if [[ $FLAV == "full" ]]; then
+    info "Installing 'iosevka sparkle'"
+    curl -Llo $XDG_RUNTIME_DIR/iosevka-sparkle.zip https://github.com/be5invis/Iosevka/releases/download/v$iosevka_ver/pkg-iosevka-sparkle-$iosevka_ver.zip
+    unzip -o $XDG_RUNTIME_DIR/iosevka-sparkle.zip -d "$target" > /dev/null
+    rm $XDG_RUNTIME_DIR/iosevka-sparkle.zip
+    echo ""
+  else
+    skip "Skipping 'iosevka sparkle' because of $FLAV install"
+  fi
+
+  info "Updating font cache"
+  fc-cache -f
+else
+  warn "Not implemented for your platform"
+fi
+
+success "Done"

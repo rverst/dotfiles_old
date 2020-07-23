@@ -1,0 +1,43 @@
+#!/usr/bin/env zsh
+# install '.idevim', configuration for JetBrains idevim-plugin
+#
+
+set -eu
+#set -o xtrace
+# set `magic` variables for current file and dir
+__dir="$(cd "$(dirname "$0")" && pwd)"
+__file="${__dir}/$(basename "$0")"
+__base="$(basename ${__file})"
+__root="$(cd "$(dirname "${__dir}")" && pwd)"
+source "$__root/script/functions"
+
+UPD=0
+BREW=0
+FLAV="light"
+while [ "${1-}" != "" ]; do
+  case $1 in
+    --update ) UPD=1 ;;
+    --brew )  BREW=1 ;;
+    --light ) FLAV="light" ;;
+    --full )  FLAV="full" ;;
+  esac
+  shift
+done
+
+[[ $FLAV == "light" ]] && skip "Skip installing .ideavim"
+info "Installing .ideavim"
+
+if [[ $DOT_KERNEL == "darwin" ]]; then
+  # macOS install
+  [[ -d "$XDG_CONFIG_HOME/ideavim" ]] || mkdir "$XDG_CONFIG_HOME/ideavim"
+  link_file "$DOTFILES/ideavim/ideavimrc" "$XDG_CONFIG_HOME/ideavim/ideavimrc"
+elif [[ $DOT_KERNEL == "linux" ]]; then
+  # linux install
+  [[ -d "$XDG_CONFIG_HOME/ideavim" ]] || mkdir "$XDG_CONFIG_HOME/ideavim"
+  link_file "$DOTFILES/ideavim/ideavimrc" "$XDG_CONFIG_HOME/ideavim/ideavimrc"
+else
+  warn "Not implemented for your platform"
+fi
+
+success "Done"
+

@@ -1,0 +1,7 @@
+#!/usr/bin/env zsh
+#
+# install/update hombrew bundles
+
+kernel="$(uname -s)"
+echo "$(dirname $0)/../homebrew/$kernel.brewfile"
+[ -n $(command -v brew) ] && brew bundle --file "$(dirname $0)/../homebrew/$kernel.brewfile"

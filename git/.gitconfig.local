@@ -1,0 +1,17 @@
+[alias]
+  commend = commit --amend --no-edit
+[color]
+  diff = auto
+  status = auto
+  branch = auto
+  ui = true
+[core]
+  excludesfile = ~/.gitignore
+  editor = nvim
+  compression = -1
+  autocrlf = input
+  whitespace = trailing-space,space-before-tab
+  precomposeunicode = true
+[help]
+  autocorrect = 1
+  

@@ -1,0 +1,30 @@
+# EditorConfig is a great project that helps you
+# maintaining a consistent code style https://editorconfig.org
+#
+# This is my root config, which can be overwritten by an .editorconfig
+# file in each project directory
+
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+indent_style = space
+indent_size = 2
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[Makefile]
+indent_style = tab
+
+[*.{md,MARKDOWN}]
+trim_trailing_whitespace = false
+
+[*.{rb,yaml,yml,sh}]
+indent_style = space
+indent_size = 2
+
+[*.vim]
+indent_style = space
+indent_size = 2
+

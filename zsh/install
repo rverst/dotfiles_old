@@ -1,0 +1,33 @@
+#!/usr/bin/env zsh
+# just preparing some things for zsh,
+# it should be installed at this place
+#
+
+set -eu
+#set -o xtrace
+# set `magic` variables for current file and dir
+__dir="$(cd "$(dirname "$0")" && pwd)"
+__file="${__dir}/$(basename "$0")"
+__base="$(basename ${__file})"
+__root="$(cd "$(dirname "${__dir}")" && pwd)"
+source "$__root/script/functions"
+
+UPD=0
+BREW=0
+FLAV="light"
+while [ "${1-}" != "" ]; do
+  case $1 in
+    --update ) UPD=1 ;;
+    --brew )  BREW=1 ;;
+    --light ) FLAV="light" ;;
+    --full )  FLAV="full" ;;
+  esac
+  shift
+done
+
+info "Installing zsh config"
+
+[[ -f "$XDG_CACHE_HOME/.zsh_history" ]] || touch "$XDG_CACHE_HOME/.zsh_history"
+
+success "Done"
+

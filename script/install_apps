@@ -1,0 +1,58 @@
+#!/usr/bin/env zsh
+# install
+#
+
+set -eu
+#set -o xtrace
+# set `magic` variables for current file and dir
+__dir="$(cd "$(dirname "$0")" && pwd)"
+__file="${__dir}/$(basename "$0")"
+__base="$(basename ${__file})"
+__root="$(cd "$(dirname "${__dir}")" && pwd)"
+source "$__root/script/functions"
+
+UPD=0
+BREW=0
+FLAV="light"
+while [ "${1-}" != "" ]; do
+  case $1 in
+    --update ) UPD=1 ;;
+    --brew )  BREW=1 ;;
+    --light ) FLAV="light" ;;
+    --full )  FLAV="full" ;;
+  esac
+  shift
+done
+
+info "Installing  ($FLAV)"
+
+if [[ $DOT_KERNEL == "darwin" ]] || [[ $BREW -eq 1 ]]; then
+  # macOS install
+  if [[ $UPD -eq 0 ]]; then
+    brew bundle --file "$__root/homebrew/$DOT_KERNEL.brewfile"
+    if [[ $FLAV == "full" ]]; then
+      brew bundle --file "$__root/homebrew/$DOT_KERNEL.full.brewfile"
+    fi
+  else
+    zsh "$__root/bin/brew-bump"
+  fi
+
+elif [[ $DOT_KERNEL == "linux" ]]; then
+  # linux install
+  if [[ $UPD -eq 0 ]]; then
+    linux_install --file "$DOTFILES/script/applist"
+    if [[ $FLAV == "full" ]]; then
+      linux_install -s --file "$DOTFILES/script/applist.full"
+    fi
+  else
+    linux_upgrade --file "$DOTFILES/script/applist"
+    if [[ $FLAV == "full" ]]; then
+      linux_install -s --file "$DOTFILES/script/applist.full"
+    fi
+  fi
+else
+  warn "Not implemented for your platform"
+fi
+
+success "Done"
+

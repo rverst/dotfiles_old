@@ -1,0 +1,195 @@
+#!/usr/bin/env zsh
+# set a variable to check if the script is already sourced
+
+info() {
+  printf "\r[ \033[00;34m..\033[0m ] $1\n"
+}
+
+skip() {
+  printf "\r[\033[00;34mskip\033[0m] $1\n"
+}
+
+user() {
+  printf "\r[ \033[0;33m??\033[0m ] $1\n"
+}
+
+success() {
+  printf "\r\033[2K[ \033[00;32mOK\033[0m ] $1\n"
+}
+
+warn() {
+  printf "\r\033[2K[\033[0;31mWARN\033[0m] $1\n"
+}
+
+fail() {
+  printf "\r\033[2K[\033[0;31mFAIL\033[0m] $1\n"
+  [ $# -eq 1 ] && return 0
+
+  echo ''
+  exit $2
+}
+
+checkCmd() {
+  if [[ -z $(command -v "$1") ]]; then
+    warn "'$1' not installed"
+    return 1
+  fi
+  return 0
+}
+
+user_read() {
+  if [[ -z ${2-} ]]; then
+    echo -n "\r[ \033[00;34m??\033[0m ] $1: " >&2
+  else
+    echo -n "\r[ \033[00;34m??\033[0m ] $1 [$2]: " >&2
+  fi
+  read input
+  [[ -z $input ]] && echo $2 || echo $input
+}
+
+user_yesno() {
+  [[ -z ${2-} ]] && 2="n"
+  if [[ $2 == "y" || $2 == "Y" ]]; then
+    echo -n "\r[ \033[00;34m??\033[0m ] $1 [Y/n]: " >&2
+  else
+    echo -n "\r[ \033[00;34m??\033[0m ] $1 [y/N]: " >&2
+  fi
+  read input
+  [[ -z $input ]] && input=$2
+  [[ $input == "y" || $input == "Y" ]] && echo 1 || echo 0
+}
+
+brew_install() {
+  info "Checking if '$1' is installed"
+  if [[ $(brew info "$1" | grep "Not installed") == "Not installed" ]]; then
+    info "installing '$1'"
+    brew install "$1"
+  else
+    skip "'$1' already installed"
+  fi
+}
+
+brew_cask_install() {
+  info "Checking if '$1' is installed"
+  if [[ $(brew cask info "$1" | grep "Not installed") == "Not installed" ]]; then
+    info "Installing '$1'"
+    brew cask install "$1"
+  else
+    skip "'$1' already installed"
+  fi
+}
+
+linux_parse_params() {
+  skip_update=0
+  use_file=""
+  local c=0
+  while [ "${1-}" != "" ]; do
+    case $1 in
+      -s | --skip ) skip_update=1 ;;
+      -f | --file ) shift; use_file=$1 ;;
+      * ) packages[$c]=$1
+	  c=$((c+1)) ;;
+    esac
+    shift
+  done
+  c=0
+  if [[ -n $use_file ]]; then
+    while read line; do
+      if [[ ! $line =~ ^#.* ]]; then
+        packages[$c]=$line
+	c=$((c+1))
+      fi
+    done < $use_file
+  fi
+}
+
+linux_install() {
+  declare -A packages
+  linux_parse_params $@
+  info "Installing '${packages[*]}'"
+  if [[ $DOT_VARIANT == "ubuntu" || $DOT_VARIANT == "debian" ]]; then
+    if [[ skip_update -eq 0 ]]; then
+      sudo apt-get update
+    fi
+    sudo apt-get -y install $packages -qq
+
+  elif [[ $DOT_VARIANT == "arch" ]]; then
+    if [[ skip_update -eq 0 ]]; then
+      sudo pacman -Syy
+    fi
+    sudo pacman -S $@
+  else
+    fail "Linux variant not supported: $v"
+  fi
+  success "Done"
+}
+
+linux_upgrade() {
+  declare -A packages
+  linux_parse_params $@
+  info "Upgrading '${packages[*]}'"
+
+  if [[ $DOT_VARIANT == "ubuntu" || $DOT_VARIANT == "debian" ]]; then
+    if [[ skip_update -eq 0 ]]; then
+      sudo apt-get update
+    fi
+    sudo apt-get -y upgrade $packages -qq
+
+  elif [[ $DOT_VARIANT == "arch" ]]; then
+    if [[ skip_update -eq 0 ]]; then
+      sudo pacman -Syy
+    fi
+    sudo pacman -S $@
+  else
+    fail "Linux variant not supported: $v"
+  fi
+  success "Done"
+}
+
+link_file() {
+  if [[ -f "$2" && ! -L "$2" ]]; then
+    mv "$2" "$2.backup"
+    info "backup created: $2.backup"
+  fi
+  ln -sf "$1" "$2"
+  success "linked $1\n           -> $2"
+}
+
+fill_variables() {
+  if [ -z ${DOT_ARCH-} ]; then
+    export DOT_ARCH=$(uname -m)
+    export DOT_KERNEL=$(uname -s | tr '[:upper:]' '[:lower:]')
+  else
+    return 0
+  fi
+  info "Checking environment"
+  success "Kernel:  $DOT_KERNEL"
+
+  if [[ $DOT_KERNEL == "linux" ]]; then
+    if [[ -f /etc/os-release ]]; then
+      export DOT_VARIANT=$(cat /etc/os-release | grep -i -e "^id=" | sed -r "s/^id=(.+)/\1/i")
+      success "Variant: $DOT_VARIANT"
+    else
+      fail "Linux variant not supported"
+    fi
+  elif [[ $DOT_KERNEL != "darwin" ]]; then
+    fail "Kernel not supported: $kernel"
+  fi
+  success "Arch:    $DOT_ARCH"
+}
+
+find_zsh() {
+  if command -v zsh >/dev/null 2>&1 && grep "$(command -v zsh)" /etc/shells >/dev/null; then
+    command -v zsh
+  fi
+}
+
+toLower() {
+  if [[ -n $(command -v tr) ]]; then
+    echo $("$1" | tr '[:upper:]' '[:lower:]')
+  else
+    echo $1
+  fi
+}
+
+fill_variables

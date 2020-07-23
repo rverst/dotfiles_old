@@ -1,0 +1,46 @@
+#!/usr/bin/env zsh
+#
+# install and configure antibody - zsh plugin manager
+# https://getantibody.github.io
+#
+
+set -eu
+#set -o xtrace
+# set `magic` variables for current file and dir
+__dir="$(cd "$(dirname "$0")" && pwd)"
+__file="${__dir}/$(basename "$0")"
+__base="$(basename ${__file})"
+__root="$(cd "$(dirname "${__dir}")" && pwd)"
+source "$__root/script/functions"
+
+UPD=0
+BREW=0
+FLAV="light"
+while [ "${1-}" != "" ]; do
+  case $1 in
+    --update ) UPD=1 ;;
+    --brew )  BREW=1 ;;
+    --light ) FLAV="light" ;;
+    --full )  FLAV="full" ;;
+  esac
+  shift
+done
+
+info "Installing antibody ($FLAV)"
+
+if [[ $DOT_KERNEL == "darwin" ]] || [[ $BREW -eq 1 ]]; then
+  # macOS install
+  brew_install antibody
+  antibody bundle < "$DOTFILES/antibody/bundles.txt" > "$ZDOTDIR/.zsh_plugins"
+  antibody update
+elif [[ $DOT_KERNEL == "linux" ]]; then
+  # linux install
+  curl -sfL git.io/antibody | sh -s - -b "$XDG_LOCAL_BIN"
+  "$XDG_LOCAL_BIN"/antibody bundle < "$DOTFILES/antibody/bundles.txt" > "$ZDOTDIR/.zsh_plugins"
+  "$XDG_LOCAL_BIN"/antibody update
+else
+  warn "Not implemented for your platform"
+fi
+
+success "Done"
+
