@@ -38,12 +38,12 @@ elif [[ $DOT_KERNEL == "linux" ]]; then
   fi
 
   UB_VER=0
-  IS_WSL=$(uname -r | sed 's/^.*microsoft$/1/i')
+  IS_WSL=$(uname -r | sed 's/^.*microsoft$/true/i')
   if [[ $DOT_VARIANT == "ubuntu" ]]; then
     UB_VER=$(cat /etc/os-release | grep -e "^VERSION_ID=" | sed -r "s/^VERSION_ID=\"([0-9]{2,})\.([0-9]{2,})\"$/\1/")
   fi
 
-  if [[ $DOT_VARIANT == "arch" ]] || [[ $IS_WSL -eq 1 ]] || [[ $(bc <<< "$UB_VER > 19") -eq 1 ]]; then
+  if [[ $DOT_VARIANT == "arch" ]] || [[ $IS_WSL == "true" ]] || [[ $(bc <<< "$UB_VER > 19") -eq 1 ]]; then
     linux_install -s neovim python3-pynvim
   else
     linux_install -s python3-neovim
