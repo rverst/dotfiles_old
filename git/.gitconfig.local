@@ -1,5 +1,8 @@
+[init]
+  defaultBranch = main
 [alias]
-  commend = commit --amend --no-edit
+  ammend = commit --amend --no-edit
+	new = !git init && git symbolic-ref HEAD refs/heads/main
 [color]
   diff = auto
   status = auto
@@ -14,4 +17,4 @@
   precomposeunicode = true
 [help]
   autocorrect = 1
-  
+
