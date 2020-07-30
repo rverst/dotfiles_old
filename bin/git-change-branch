@@ -1,0 +1,9 @@
+#!/bin/sh
+
+branch=${1-main}
+
+echo "Change branch master to '$branch'" && \
+  git branch -m master $branch && \
+  git push -u origin main
+  echo "done."
+
