@@ -3,6 +3,7 @@
 branch=${1-main}
 
 echo "Change upstream from master to '$branch'" && \
+  git fetch && \
   git checkout $branch && \
   git fetch && \
   git branch --unset-upstream && \
