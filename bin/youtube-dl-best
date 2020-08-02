@@ -1,0 +1,19 @@
+#!/bin/sh
+#
+# Prints cert certificate for a given domain using openssl
+#
+# Usage:
+#
+# $0 domain
+#
+set -e
+video_type=$(youtube-dl -F "$@" | grep "video only" | awk '{print $2}' | tail -n 1)
+case $video_type in
+  mp4)
+    youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]' "$@";;
+  webm)
+    youtube-dl -f 'bestvideo[ext=webm]+bestaudio[ext=webm]' "$@";;
+  *)
+    echo "new best videoformat detected, please check it out! -> aborted";;
+esac
+
