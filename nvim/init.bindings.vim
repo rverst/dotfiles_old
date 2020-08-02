@@ -12,3 +12,9 @@ map <C-l> <C-w>l
 """ some handy shortcuts
 map <C-x><C-x> :write<CR>:source $XDG_CONFIG_HOME/nvim/init.vim<CR>
 
+""" copy, pase to clipboard
+map <leader>y "+y
+map <leader>p "+p
+map <leader>Y "+yy
+map <leader>P "+pp
+
