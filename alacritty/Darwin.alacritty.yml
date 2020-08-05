@@ -14,7 +14,7 @@ scrolling:
 font:
   normal:
     family: Iosevka Term
-    style: Light Extended 
+    style: Light Extended
   bold:
     family: Iosevka Term
     style: Extended
@@ -86,11 +86,11 @@ colors:
     magenta: '#FBB1F9'
     cyan:    '#77DFD8'
     white:   '#F7F7F7'
-visual_bell:
+bell:
   animation: EaseOutExpo
   duration: 50
-  color: '#ffffff'
-background_opacity: 0.95
+  color: '#E09690'
+background_opacity: 0.65
 
 #selection:
   #semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
