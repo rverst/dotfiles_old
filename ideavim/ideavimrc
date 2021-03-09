@@ -23,6 +23,9 @@ set showmode
 set ideajoin
 
 """ Mappings
+map <leader>p "+p
+map <leader>y "+y
+
 map <leader>a :action QuickActions<CR>
 map <leader>e :action GotoNextError<CR>
 map <leader>f :action QuickFixes<CR>
