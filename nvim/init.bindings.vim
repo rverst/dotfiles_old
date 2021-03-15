@@ -3,7 +3,7 @@ map <leader>oo :setlocal spell! spelllang=en_us,de_de<CR>
 map <leader>oe :setlocal spell! spelllang=en_us<CR>
 map <leader>og :setlocal spell! spelllang=de_de<CR>
 
-""" switch pane with <ctrl>=j/k/h/l
+""" switch pane with <ctrl> j/k/h/l
 map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-h> <C-w>h

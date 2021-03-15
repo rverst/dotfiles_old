@@ -4,6 +4,6 @@ branch=${1-main}
 
 echo "Change branch master to '$branch'" && \
   git branch -m master $branch && \
-  git push -u origin main
+  git push -u origin $branch
   echo "done."
 
