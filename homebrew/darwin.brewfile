@@ -2,6 +2,7 @@ tap "homebrew/bundle"
 tap "homebrew/core"
 tap "homebrew/services"
 tap "eth-p/software"
+tap "tidwall/jj"
 
 brew "antibody"       				# fast shell plugin manager (https://github.com/getantibody/antibody)
 brew "bat"            				# A cat(1) clone with wings (https://github.com/sharkdp/bat)
@@ -13,11 +14,12 @@ brew "go"             				# Open source programming language to build simple/rel
 brew "goreleaser"     				# Deliver Go binaries as fast and easily as possible
 brew "htop"           				# Process manager
 brew "jq"             				# Lightweight and flexible command-line JSON processor
+brew "jj"             				# Alternative JSON processor written in go
 brew "lazydocker"     				# A simple terminal UI for both docker and docker-compose (https://github.com/jesseduffield/lazydocker)
 brew "lazygit"        				# A simple terminal UI for git commands (https://github.com/jesseduffield/lazygit)
 brew "most"           				# more -> less > most
 brew "neofetch"	      				# System information
-brew "neovim"					# Editor
+brew "neovim"		        			# Editor
 brew "nmap"           				# Port scanner
 brew "ripgrep"        				# A line-oriented search tool that (https://github.com/burntsushi/ripgrep)
 brew "syncthing"      				# A continuous file synchronization program (https://github.com/syncthing/syncthing)
