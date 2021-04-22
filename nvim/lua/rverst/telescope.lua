@@ -8,3 +8,5 @@ require('telescope').setup{
     },
   }
 }
+
+print('Hello WOLRD')
