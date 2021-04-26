@@ -1,5 +1,27 @@
 local utils = { }
 
+OS = {
+    Unknown=1,
+    MacOs=2,
+    Linux=3,
+    Windows=4,
+    WSL=5
+}
+
+function utils.getOs()
+    if vim.fn.has('macunix') then
+        return OS.MacOs
+    elseif vim.fn.has('unix') then
+        return OS.Linux
+    elseif vim.fn.has('win32') then
+        return OS.Windows
+    else
+        return OS.Unknown
+    end
+end
+
+
+
 local scopes = {o = vim.o, b = vim.bo, w = vim.wo}
 
 -- set options, scopes are 'o' == global, 'b' == buffer, 'w' == window
@@ -35,6 +57,7 @@ function utils.augrp(name, cmds)
   vim.cmd('aug END')
 end
 
+-- useful to check if the autocommand is ok when escaping characters
 function utils.augrp_dbg(name, cmds)
   local cmd = vim.cmd
   cmd(string.format('echo %q', ('aug ' .. name)))
@@ -52,5 +75,8 @@ end
 function utils.echo(msg)
   vim.cmd(string.format('echo %q', msg))
 end
+
+
+
 
 return utils

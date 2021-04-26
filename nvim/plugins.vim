@@ -29,6 +29,7 @@ call plug#begin(stdpath('data') . '/plugged')
   Plug 'junegunn/goyo.vim'
 
   " color schemes
+  Plug 'tjdevries/gruvbuddy'
   Plug 'sainnhe/gruvbox-material'
 
 call plug#end()

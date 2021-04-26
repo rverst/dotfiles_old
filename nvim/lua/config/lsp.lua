@@ -1,4 +1,4 @@
-
+local utils = require('utils')
 local nvim_lsp = require('lspconfig')
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
@@ -66,38 +66,47 @@ for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup { on_attach = on_attach }
 end
 
--- sumenko settings
--- ToDo: different binaries for Linux/Mac/Windows
-
+-- sumneko settings
 local xdg_data = vim.fn.expand('$XDG_DATA_HOME')
 local sumneko_root = xdg_data .. '/lua-language-server'
-local sumneko_bin = sumneko_root .. '/bin/Linux/lua-language-server'
+local sumneko_bin = ''
+local os = utils.getOs()
+if os == OS.MacOs then
+    sumneko_bin = sumneko_root .. '/bin/macos/lua-language-server'
+elseif os == OS.Linux then
+    sumneko_bin = sumneko_root .. '/bin/Linux/lua-language-server'
+elseif os == OS.Windows then
+    sumneko_bin = sumneko_root .. '/bin/Windows/lua-language-server'
+end
 
-require "lspconfig".sumneko_lua.setup {
-    cmd = {sumneko_bin, "-E", sumneko_root .. "/main.lua"},
-    root_dir = function()
-        return vim.loop.cwd()
-    end,
-    settings = {
-        Lua = {
-            runtime = {
-                version = "LuaJIT",
-                path = vim.split(package.path, ";")
-            },
-            diagnostics = {
-                globals = {"vim"}
-            },
-            workspace = {
-                library = {
-                    [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-                    [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true
+if vim.fn.empty(vim.fn.glob(sumneko_bin)) > 0 then
+    print('sumneko not found: ' .. sumneko_bin)
+else
+    require "lspconfig".sumneko_lua.setup {
+        cmd = {sumneko_bin, "-E", sumneko_root .. "/main.lua"},
+        root_dir = function()
+            return vim.loop.cwd()
+        end,
+        settings = {
+            Lua = {
+                runtime = {
+                    version = "LuaJIT",
+                    path = vim.split(package.path, ";")
+                },
+                diagnostics = {
+                    globals = {"vim"}
+                },
+                workspace = {
+                    library = {
+                        [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+                        [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true
+                    }
+                },
+                telemetry = {
+                    enable = false
                 }
-            },
-            telemetry = {
-                enable = false
             }
-        }
-    },
-    on_attach = on_attach
-}
-
+        },
+        on_attach = on_attach
+    }
+end

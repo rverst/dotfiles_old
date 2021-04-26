@@ -21,7 +21,6 @@ p.paq 'nvim-lua/plenary.nvim'
 
 -- nvim treesitter
 p.paq {'nvim-treesitter/nvim-treesitter', run='TSUpdate'}
-p.paq 'nvim-treesitter/playgound'
 
 -- LSP plugins
 p.paq 'neovim/nvim-lspconfig'
@@ -40,8 +39,9 @@ p.paq 'tjdevries/gruvbuddy.nvim'
 
 --misc
 p.paq 'tweekmonster/startuptime.vim'
---p.paq 'norcalli/nvim-colorizer.lua'
-
+p.paq 'norcalli/nvim-colorizer.lua'
+p.paq {'glepnir/galaxyline.nvim', branch='main' }
+p.paq 'kyazdani42/nvim-web-devicons'
 
 if not installed then
   p.install()

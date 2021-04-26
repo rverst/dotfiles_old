@@ -27,6 +27,8 @@ require('autocmds')
 
 require('config.lsp')
 require('config.colorizer')
+require('config.devicons')
+require('config.galaxyline')
 
 require('colorbuddy').colorscheme('smyck')
 --require('colorbuddy').colorscheme('gruvbuddy')
