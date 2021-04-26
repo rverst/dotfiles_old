@@ -31,14 +31,16 @@ p.paq 'nvim-lua/lsp_extensions.nvim'
 -- maximize windows
 p.paq 'szw/vim-maximizer'
 
-
 -- zen mode
 p.paq 'junegunn/goyo.vim'
 
 -- color schemes
-p.paq 'sainnhe/gruvbox-material'
+p.paq 'tjdevries/colorbuddy.nvim'
+p.paq 'tjdevries/gruvbuddy.nvim'
 
-
+--misc
+p.paq 'tweekmonster/startuptime.vim'
+--p.paq 'norcalli/nvim-colorizer.lua'
 
 
 if not installed then

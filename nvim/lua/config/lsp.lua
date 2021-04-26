@@ -65,3 +65,39 @@ local servers = { "gopls" }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup { on_attach = on_attach }
 end
+
+-- sumenko settings
+-- ToDo: different binaries for Linux/Mac/Windows
+
+local xdg_data = vim.fn.expand('$XDG_DATA_HOME')
+local sumneko_root = xdg_data .. '/lua-language-server'
+local sumneko_bin = sumneko_root .. '/bin/Linux/lua-language-server'
+
+require "lspconfig".sumneko_lua.setup {
+    cmd = {sumneko_bin, "-E", sumneko_root .. "/main.lua"},
+    root_dir = function()
+        return vim.loop.cwd()
+    end,
+    settings = {
+        Lua = {
+            runtime = {
+                version = "LuaJIT",
+                path = vim.split(package.path, ";")
+            },
+            diagnostics = {
+                globals = {"vim"}
+            },
+            workspace = {
+                library = {
+                    [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+                    [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true
+                }
+            },
+            telemetry = {
+                enable = false
+            }
+        }
+    },
+    on_attach = on_attach
+}
+

@@ -26,3 +26,7 @@ require('bindings')
 require('autocmds')
 
 require('config.lsp')
+require('config.colorizer')
+
+require('colorbuddy').colorscheme('smyck')
+--require('colorbuddy').colorscheme('gruvbuddy')
