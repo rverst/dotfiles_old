@@ -7,6 +7,7 @@ set hlsearch
 set incsearch
 set noerrorbells
 
+" tabstops and indentation
 set tabstop=2 softtabstop=2
 set shiftwidth=2
 set expandtab
@@ -15,6 +16,10 @@ set smartindent
 " we do use widescreen monitor nowadays
 set colorcolumn=99
 set nowrap
+
+" mouse support
+set mouse=nv
+set mousehide
 
 set scrolloff=8
 set cmdheight=2

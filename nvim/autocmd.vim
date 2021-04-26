@@ -17,6 +17,8 @@ augroup switch_number
   autocmd InsertLeave * set relativenumber
 augroup END
 
+
+
 " highlight the yanked section
 augroup highlight_yank
   autocmd!

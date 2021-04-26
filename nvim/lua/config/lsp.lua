@@ -29,6 +29,7 @@ local on_attach = function(client, bufnr)
   -- See `:help omnifunc` and `:help ins-completion` for more information.
   vim.api.nvim_buf_set_option(0, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
+  -- attach completion plugin
   require('completion').on_attach()
 
   -- Set some keybinds conditional on server capabilities

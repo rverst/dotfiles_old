@@ -18,7 +18,6 @@ call plug#begin(stdpath('data') . '/plugged')
 
   " LSP
   Plug 'neovim/nvim-lspconfig'
-  Plug 'williamboman/nvim-lsp-installer'
   Plug 'nvim-lua/completion-nvim'
   Plug 'tjdevries/nlua.nvim'
   Plug 'tjdevries/lsp_extensions.nvim'

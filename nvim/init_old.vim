@@ -7,6 +7,7 @@
 " - Luke Smith (https://github.com/LukeSmithxyz)
 " - ThePrimeagen (https://github.com/awesome-streamers/awesome-streamerrc/blob/master/ThePrimeagen)
 " - TJ DeVries (https://github.com/tjdevries)
+" - siduck76 (https://github.com/siduck76/neovim-dots)
 "
 " ############################################
 
