@@ -26,6 +26,13 @@ utils.map('v', '<C-j>', '<C-w>j')
 utils.map('v', '<C-k>', '<C-w>k')
 utils.map('v', '<C-l>', '<C-w>l')
 
+utils.map('n', '1', '<C-w>5<')
+utils.map('n', '2', '<C-w>5>')
+utils.map('n', '5', '<C-w>=')
+utils.map('n', '4', '<C-w>5-')
+utils.map('n', '3', '<C-w>5+')
+
+
 -- new terminal
 utils.map('n', '<leader>tn', [[<cmd> vnew term://zsh<CR>]])
 utils.map('n', '<leader>tx', [[<cmd> new term://zsh<CR>]])
@@ -34,10 +41,10 @@ utils.map('n', '<leader>tx', [[<cmd> new term://zsh<CR>]])
 utils.map('t', '<ESC>', [[<C-\><C-n>]])
 
 -- navigate completion menu
-utils.map('i', '<Tab>', [[pumvisible() ? "<C-n>" : "<Tab>"]], {expr = true})
-utils.map('i', '<S-Tab>', [[pumvisible() ? "<C-p>" : "<S-Tab>"]], {expr = true})
-utils.map('i', '<Down>', [[pumvisible() ? "<C-n>" : "<Down>"]], {expr = true})
-utils.map('i', '<Up>', [[pumvisible() ? "<C-p>" : "<Up>"]], {expr = true})
+--utils.map('i', '<Tab>', [[pumvisible() ? "<C-n>" : "<Tab>"]], {expr = true})
+--utils.map('i', '<S-Tab>', [[pumvisible() ? "<C-p>" : "<S-Tab>"]], {expr = true})
+--utils.map('i', '<Down>', [[pumvisible() ? "<C-n>" : "<Down>"]], {expr = true})
+--utils.map('i', '<Up>', [[pumvisible() ? "<C-p>" : "<Up>"]], {expr = true})
 
 -- telescope
 utils.map('n', '<leader>ff', '<cmd>lua require("telescope.builtin").find_files()<CR>')

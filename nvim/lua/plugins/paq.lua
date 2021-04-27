@@ -3,7 +3,7 @@ local cmd = vim.cmd
 local path = fn.stdpath('data') .. '/site/pack/paqs/opt/paq-nvim'
 local installed = fn.empty(fn.glob(path)) == 0
 
-function installPlugins()
+function InstallPlugins()
     cmd('luafile paq.lua')
     require('paq-nvim').update()
 end
@@ -29,8 +29,11 @@ p.paq {'nvim-treesitter/nvim-treesitter', run='TSUpdate'}
 
 -- LSP plugins
 p.paq 'neovim/nvim-lspconfig'
-p.paq 'nvim-lua/completion-nvim'
 p.paq 'nvim-lua/lsp_extensions.nvim'
+
+-- completion
+p.paq 'hrsh7th/nvim-compe'
+p.paq 'windwp/nvim-autopairs'
 
 -- snippets
 p.paq 'norcalli/snippets.nvim'

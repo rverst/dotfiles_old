@@ -29,8 +29,8 @@ require('bindings')
 require('autocmds')
 
 -- plugin configurations
+require('plugins.compe')
 require('plugins.lsp')
-require('plugins.completion')
 require('plugins.snippets')
 require('plugins.treesitter')
 require('plugins.colorizer')
@@ -41,3 +41,5 @@ require('plugins.galaxyline')
 require('colorbuddy').colorscheme('onebuddy')
 --require('colorbuddy').colorscheme('smyck')
 --require('colorbuddy').colorscheme('gruvbuddy')
+
+
