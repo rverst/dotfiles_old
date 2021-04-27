@@ -26,9 +26,11 @@ require('bindings')
 require('autocmds')
 
 require('config.lsp')
+require('config.treesitter')
 require('config.colorizer')
 require('config.devicons')
 require('config.galaxyline')
 
-require('colorbuddy').colorscheme('smyck')
+require('colorbuddy').colorscheme('onebuddy')
+--require('colorbuddy').colorscheme('smyck')
 --require('colorbuddy').colorscheme('gruvbuddy')

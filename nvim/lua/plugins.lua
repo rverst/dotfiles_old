@@ -36,6 +36,7 @@ p.paq 'junegunn/goyo.vim'
 -- color schemes
 p.paq 'tjdevries/colorbuddy.nvim'
 p.paq 'tjdevries/gruvbuddy.nvim'
+p.paq 'Th3Whit3Wolf/onebuddy'
 
 --misc
 p.paq 'tweekmonster/startuptime.vim'
