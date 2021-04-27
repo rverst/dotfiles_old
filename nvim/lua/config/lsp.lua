@@ -73,7 +73,7 @@ local sumneko_bin = ''
 local os = utils.getOs()
 if os == OS.MacOs then
     sumneko_bin = sumneko_root .. '/bin/macos/lua-language-server'
-elseif os == OS.Linux then
+elseif os == OS.Linux or os == OS.WSL then
     sumneko_bin = sumneko_root .. '/bin/Linux/lua-language-server'
 elseif os == OS.Windows then
     sumneko_bin = sumneko_root .. '/bin/Windows/lua-language-server'

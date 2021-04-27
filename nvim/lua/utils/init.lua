@@ -1,4 +1,4 @@
-local utils = { }
+local M = { }
 
 OS = {
     Unknown=1,
@@ -8,12 +8,19 @@ OS = {
     WSL=5
 }
 
-function utils.getOs()
-    if vim.fn.has('macunix') then
+function M.getOs()
+    if vim.fn.has('macunix') ~= 0 then
         return OS.MacOs
-    elseif vim.fn.has('unix') then
+    elseif vim.fn.has('unix') ~= 0 then
+        local hdl = io.popen('uname -r')
+        local res = hdl:read('*a')
+        hdl:close()
+
+        if string.find(res, 'WSL') ~= nil then
+            return OS.WSL
+        end
         return OS.Linux
-    elseif vim.fn.has('win32') then
+    elseif vim.fn.has('win32') ~= 0 then
         return OS.Windows
     else
         return OS.Unknown
@@ -25,7 +32,7 @@ end
 local scopes = {o = vim.o, b = vim.bo, w = vim.wo}
 
 -- set options, scopes are 'o' == global, 'b' == buffer, 'w' == window
-function utils.opt(scope, key, value)
+function M.opt(scope, key, value)
   scopes[scope][key] = value
   if scope ~= 'o' then
     scopes['o'][key] = value
@@ -33,7 +40,7 @@ function utils.opt(scope, key, value)
 end
 
 -- set keymapping
-function utils.map(mode, lhs, rhs, opts)
+function M.map(mode, lhs, rhs, opts)
   local options = {noremap = true}
   if opts then
     options = vim.tbl_extend('force', options, opts)
@@ -43,7 +50,7 @@ end
 
 -- set autocommand(s) in an autogroup, removing the autocommands in the group first (au!)
 -- prevents the commands from being attached multiple times if the init.lua is sourced
-function utils.augrp(name, cmds)
+function M.augrp(name, cmds)
   local cmd = vim.cmd
   cmd('aug ' .. name)
   cmd('au!')
@@ -58,7 +65,7 @@ function utils.augrp(name, cmds)
 end
 
 -- useful to check if the autocommand is ok when escaping characters
-function utils.augrp_dbg(name, cmds)
+function M.augrp_dbg(name, cmds)
   local cmd = vim.cmd
   cmd(string.format('echo %q', ('aug ' .. name)))
   cmd(string.format('echo %q', ('   au!')))
@@ -72,11 +79,8 @@ function utils.augrp_dbg(name, cmds)
   cmd(string.format('echo %q', ('aug END')))
 end
 
-function utils.echo(msg)
+function M.echo(msg)
   vim.cmd(string.format('echo %q', msg))
 end
 
-
-
-
-return utils
+return M
