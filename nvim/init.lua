@@ -15,22 +15,29 @@
 -- leaderkey is space
 vim.g.mapleader = ' '
 
-local fn = vim.fn
-local cmd = vim.cmd
-local exec = vim.api.nvim_command
-local utils = require('utils')
+--local fn = vim.fn
+--local cmd = vim.cmd
+--local exec = vim.api.nvim_command
+--local utils = require('utils')
 
-require('plugins')
+-- plugin manager
+require('plugins.paq')
+
+-- different settings
 require('settings')
 require('bindings')
 require('autocmds')
 
-require('config.lsp')
-require('config.treesitter')
-require('config.colorizer')
-require('config.devicons')
-require('config.galaxyline')
+-- plugin configurations
+require('plugins.lsp')
+require('plugins.completion')
+require('plugins.snippets')
+require('plugins.treesitter')
+require('plugins.colorizer')
+require('plugins.devicons')
+require('plugins.galaxyline')
 
+-- colorscheme
 require('colorbuddy').colorscheme('onebuddy')
 --require('colorbuddy').colorscheme('smyck')
 --require('colorbuddy').colorscheme('gruvbuddy')

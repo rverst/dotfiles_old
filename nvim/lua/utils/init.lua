@@ -12,11 +12,8 @@ function M.getOs()
     if vim.fn.has('macunix') ~= 0 then
         return OS.MacOs
     elseif vim.fn.has('unix') ~= 0 then
-        local hdl = io.popen('uname -r')
-        local res = hdl:read('*a')
-        hdl:close()
-
-        if string.find(res, 'WSL') ~= nil then
+        local rel = vim.loop.os_uname().release
+        if string.find(rel, 'WSL') ~= nil then
             return OS.WSL
         end
         return OS.Linux

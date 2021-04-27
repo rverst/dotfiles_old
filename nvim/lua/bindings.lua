@@ -3,6 +3,10 @@ local utils = require('utils')
 -- clear search highlight on <CR>
 utils.map('n', '<CR>', '<cmd>noh<CR><CR>')
 
+-- copy/pase from/to clipboard
+utils.map('', '<leader>y', '"+y')
+utils.map('', '<leader>p', '"+p')
+
 -- spellcheck, 'o' for ortography
 utils.map('n', '<leader>oo', '<cmd>setlocal spell! spelllang=en_us,de_de<CR>')
 utils.map('n', '<leader>oe', '<cmd>setlocal spell! spelllang=en_us<CR>')
@@ -29,6 +33,11 @@ utils.map('n', '<leader>tx', [[<cmd> new term://zsh<CR>]])
 -- <esc> to leave insert mode in terminal
 utils.map('t', '<ESC>', [[<C-\><C-n>]])
 
+-- navigate completion menu
+utils.map('i', '<Tab>', [[pumvisible() ? "<C-n>" : "<Tab>"]], {expr = true})
+utils.map('i', '<S-Tab>', [[pumvisible() ? "<C-p>" : "<S-Tab>"]], {expr = true})
+utils.map('i', '<Down>', [[pumvisible() ? "<C-n>" : "<Down>"]], {expr = true})
+utils.map('i', '<Up>', [[pumvisible() ? "<C-p>" : "<Up>"]], {expr = true})
 
 -- telescope
 utils.map('n', '<leader>ff', '<cmd>lua require("telescope.builtin").find_files()<CR>')
