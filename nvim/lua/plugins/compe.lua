@@ -1,15 +1,11 @@
--- attached in lsp-config
-vim.cmd [[packadd nvim-lspconfig]]
-vim.cmd [[packadd nvim-compe]]
-
 vim.o.completeopt = "menuone,noselect"
 
 require "compe".setup {
     enabled = true,
     autocomplete = true,
     debug = false,
-    min_length = 3,
-    preselect = "disable",
+    min_length = 1,
+    preselect = "enable",
     throttle_time = 80,
     source_timeout = 200,
     incomplete_delay = 400,
@@ -21,11 +17,11 @@ require "compe".setup {
         path = true,
         buffer = true,
         calc = true,
-        vsnip = false,
+        vsnip = true,
         nvim_lsp = true,
         nvim_lua = true,
         spell = true,
-        tags = false,
+        tags = true,
         snippets_nvim = true,
         treesitter = true
     }

@@ -34,8 +34,8 @@ utils.map('n', '3', '<C-w>5+')
 
 
 -- new terminal
-utils.map('n', '<leader>tn', [[<cmd> vnew term://zsh<CR>]])
-utils.map('n', '<leader>tx', [[<cmd> new term://zsh<CR>]])
+utils.map('n', '<leader>tn', [[<cmd> vnew term://zsh <CR>]])
+utils.map('n', '<leader>tx', [[<cmd> new term://zsh | resize 10<CR>]])
 
 -- <esc> to leave insert mode in terminal
 utils.map('t', '<ESC>', [[<C-\><C-n>]])
