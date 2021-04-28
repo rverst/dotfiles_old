@@ -8,6 +8,7 @@ local scrolloff = 8
 local undoDir = fn.stdpath('cache') .. '/undo'
 
 cmd 'syntax enable'
+cmd 'syntax on'
 cmd 'filetype plugin indent on'
 
 utils.opt('o', 'updatetime', 250)
@@ -22,9 +23,10 @@ utils.opt('o', 'splitbelow', true)
 utils.opt('o', 'splitright', true)
 utils.opt('o', 'termguicolors', true)
 utils.opt('o', 'scrolloff', scrolloff)
-utils.opt('o', 'completeopt', 'menuone,noinsert,noselect')
 utils.opt('o', 'wildmode', 'longest:list:full')
-utils.opt('o', 'clipboard', 'unnamed,unnamedplus')
+utils.opt('o', 'clipboard', 'unnamed')
+
+utils.opt('o', 'completeopt', 'menuone,noinsert,noselect')
 utils.opt('o', 'shortmess', 'filnxtToOFc')
 
 utils.opt('o', 'hidden', true)
@@ -42,4 +44,6 @@ utils.opt('b', 'tabstop', indent)
 
 utils.opt('w', 'number', true)
 utils.opt('w', 'relativenumber', true)
+utils.opt('o', 'numberwidth', 3)
+utils.opt('w', 'signcolumn', 'yes:2')
 
