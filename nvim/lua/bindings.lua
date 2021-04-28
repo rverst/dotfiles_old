@@ -26,11 +26,11 @@ utils.map('v', '<C-j>', '<C-w>j')
 utils.map('v', '<C-k>', '<C-w>k')
 utils.map('v', '<C-l>', '<C-w>l')
 
-utils.map('n', '1', '<C-w>5<')
-utils.map('n', '2', '<C-w>5>')
-utils.map('n', '5', '<C-w>=')
-utils.map('n', '4', '<C-w>5-')
-utils.map('n', '3', '<C-w>5+')
+utils.map('n', '<C-a>', '<cmd>vertical resize -5<CR>')
+utils.map('n', '<C-s>', '<cmd>vertical resize +5<CR>')
+utils.map('n', '<C-d>', '<cmd>resize -5<CR>')
+utils.map('n', '<C-f>', '<cmd>resize +5<CR>')
+utils.map('n', '<F2>', '<C-w>=')
 
 
 -- new terminal

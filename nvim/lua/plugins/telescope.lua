@@ -10,7 +10,7 @@ require('telescope').setup {
             '--smart-case'
         },
         prompt_position = 'bottom',
-        prompt_prefix = ' ',
+        prompt_prefix = ' ',
         selection_caret = ' ',
         entry_prefix = '  ',
         initial_mode = 'insert',
@@ -72,14 +72,16 @@ vim.api.nvim_set_keymap(
 vim.api.nvim_set_keymap('n', '<Leader>fb', [[<Cmd>lua require('telescope.builtin').buffers()<CR>]], opt)
 vim.api.nvim_set_keymap('n', '<Leader>fh', [[<Cmd>lua require('telescope.builtin').help_tags()<CR>]], opt)
 vim.api.nvim_set_keymap('n', '<Leader>fo', [[<Cmd>lua require('telescope.builtin').oldfiles()<CR>]], opt)
+vim.api.nvim_set_keymap('n', '<Leader>fn', [[<Cmd>lua require('telescope.builtin').file_browser()<CR>]], opt)
 vim.api.nvim_set_keymap('n', '<Leader>fm', [[<Cmd> Neoformat<CR>]], opt)
 
 -- highlights
 
 local c = vim.cmd
+local g = vim.g
 
-c('hi TelescopeBorder   guifg=#2a2e36')
-c('hi TelescopePromptBorder   guifg=#2a2e36')
-c('hi TelescopeResultsBorder  guifg=#2a2e36')
-c('hi TelescopePreviewBorder  guifg=#525865')
+c('hi TelescopeBorder         guifg=' .. g.colors.border)
+c('hi TelescopePromptBorder   guifg=' .. g.colors.border)
+c('hi TelescopeResultsBorder  guifg=' .. g.colors.border)
+c('hi TelescopePreviewBorder  guifg=' .. g.colors.border)
 

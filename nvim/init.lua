@@ -17,6 +17,10 @@ g.mapleader = ' '
 
 -- load the plugin manager
 require('plugins.paq')
+
+-- set some color variables, the actual colorscheme is loaded later
+require('colors')
+
 require('plugins.devicons')
 require('plugins.file-icons')
 
@@ -30,9 +34,8 @@ require('plugins.neoscroll')
 require('plugins.lsp')
 require('plugins.compe')
 
-require('colors')
 
-require('plugins.indentline')
+--require('plugins.indentline')
 require('plugins.treesitter')
 
 require('plugins.telescope')
@@ -46,5 +49,6 @@ require('bindings')
 require('plugins.kommentary')
 require('plugins.snippets')
 
+require('colorscheme')
 require('autocmds')
 

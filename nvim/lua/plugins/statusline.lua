@@ -25,7 +25,7 @@ local colors = {
 gls.left[1] = {
     leftRounded = {
         provider = function()
-            return ''
+            return '█'
         end,
         highlight = {colors.nord, colors.bg}
     }
@@ -61,7 +61,7 @@ gls.left[4] = {
 gls.left[5] = {
     teech = {
         provider = function()
-            return ''
+            return '  '
         end,
         separator = ' ',
         highlight = {colors.lightbg, colors.bg}
@@ -160,7 +160,7 @@ gls.right[2] = {
 gls.right[3] = {
     right_LeftRounded = {
         provider = function()
-            return ''
+            return '█'
         end,
         separator = ' ',
         separator_highlight = {colors.bg, colors.bg},
@@ -178,6 +178,7 @@ gls.right[4] = {
                 V = 'VISUAL',
                 [''] = 'VISUAL',
                 v = 'VISUAL',
+                t = 'TERMINAL',
                 R = 'REPLACE'
             }
             return alias[vim.fn.mode()]
@@ -198,7 +199,7 @@ gls.right[5] = {
 gls.right[6] = {
     rightRounded = {
         provider = function()
-            return ''
+            return '█'
         end,
         highlight = {colors.fg, colors.bg}
     }
