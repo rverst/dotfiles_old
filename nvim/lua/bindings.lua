@@ -36,8 +36,16 @@ utils.map('n', '<F2>', '<C-w>=')
 
 
 -- new terminal
-utils.map('n', '<leader>tn', [[<cmd> vnew term://zsh <CR>]])
-utils.map('n', '<leader>tx', [[<cmd> new term://zsh | resize 10<CR>]])
+local os = utils.getOs()
+local term = ''
+if os == OS.Windows then
+    term = 'pwsh.exe'
+else
+    term = 'zsh'
+end
+
+utils.map('n', '<leader>tn', [[<cmd> vnew term://]] .. term .. [[ <CR>]])
+utils.map('n', '<leader>tx', [[<cmd> new term://]] .. term .. [[ | resize 10<CR>]])
 
 -- <esc> to leave insert mode in terminal
 utils.map('t', '<ESC>', [[<C-\><C-n>]])
