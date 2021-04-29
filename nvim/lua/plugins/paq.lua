@@ -64,7 +64,7 @@ p.paq 'norcalli/nvim-colorizer.lua'
 --misc
 p.paq 'tweekmonster/startuptime.vim'
 p.paq 'karb94/neoscroll.nvim'
-p.paq { 'lukas-reineke/indent-blankline.nvim', branch='lua' }
+--p.paq { 'lukas-reineke/indent-blankline.nvim', branch='lua' }
 
 p.paq 'b3nj5m1n/kommentary'
 
