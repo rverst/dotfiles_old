@@ -51,7 +51,7 @@ end
 
 local utils = require('utils')
 local lspconfig = require('lspconfig')
-local servers = { 'gopls' }
+local servers = { 'gopls', 'clangd' }
 
 for _, lsp in pairs(servers) do
   lspconfig[lsp].setup { on_attach = on_attach }
