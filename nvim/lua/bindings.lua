@@ -26,10 +26,12 @@ utils.map('v', '<C-j>', '<C-w>j')
 utils.map('v', '<C-k>', '<C-w>k')
 utils.map('v', '<C-l>', '<C-w>l')
 
-utils.map('n', '<C-a>', '<cmd>vertical resize -5<CR>')
-utils.map('n', '<C-s>', '<cmd>vertical resize +5<CR>')
-utils.map('n', '<C-d>', '<cmd>resize -5<CR>')
-utils.map('n', '<C-f>', '<cmd>resize +5<CR>')
+-- Need to find something easy and useful to resize the windows,
+-- should be a single keystroke command for easy repeat
+--utils.map('n', '<C-a>', '<cmd>vertical resize -5<CR>')
+--utils.map('n', '<C-s>', '<cmd>vertical resize +5<CR>')
+--utils.map('n', '<C-d>', '<cmd>resize -5<CR>')
+--utils.map('n', '<C-f>', '<cmd>resize +5<CR>')
 utils.map('n', '<F2>', '<C-w>=')
 
 
@@ -39,12 +41,6 @@ utils.map('n', '<leader>tx', [[<cmd> new term://zsh | resize 10<CR>]])
 
 -- <esc> to leave insert mode in terminal
 utils.map('t', '<ESC>', [[<C-\><C-n>]])
-
--- navigate completion menu
---utils.map('i', '<Tab>', [[pumvisible() ? "<C-n>" : "<Tab>"]], {expr = true})
---utils.map('i', '<S-Tab>', [[pumvisible() ? "<C-p>" : "<S-Tab>"]], {expr = true})
---utils.map('i', '<Down>', [[pumvisible() ? "<C-n>" : "<Down>"]], {expr = true})
---utils.map('i', '<Up>', [[pumvisible() ? "<C-p>" : "<Up>"]], {expr = true})
 
 -- telescope
 utils.map('n', '<leader>ff', '<cmd>lua require("telescope.builtin").find_files()<CR>')
