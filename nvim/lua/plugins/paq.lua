@@ -18,8 +18,7 @@ p.paq 'nvim-telescope/telescope.nvim'
 p.paq 'nvim-lua/lsp_extensions.nvim'
 p.paq 'nvim-lua/popup.nvim'
 p.paq 'nvim-lua/plenary.nvim'
-p.paq 'kabouzeid/nvim-lspinstall'
-p.paq 'glepnir/lspsaga.nvim'
+--p.paq 'nvim-lua/completion-nvim'
 
 p.paq {'nvim-treesitter/nvim-treesitter', run='TSUpdate'}
 p.paq 'neovim/nvim-lspconfig'
@@ -56,6 +55,9 @@ p.paq {'glepnir/galaxyline.nvim', branch='main' }
 p.paq 'akinsho/nvim-bufferline.lua'
 
 -- color stuff --
+-- p.paq 'tjdevries/colorbuddy.nvim'
+-- p.paq 'tjdevries/gruvbuddy.nvim'
+-- p.paq 'Th3Whit3Wolf/onebuddy'
 p.paq 'norcalli/nvim-base16.lua'
 p.paq 'norcalli/nvim-colorizer.lua'
 
