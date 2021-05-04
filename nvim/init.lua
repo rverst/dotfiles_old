@@ -31,7 +31,7 @@ require('plugins.statusline')
 require('plugins.colorizer')
 require('plugins.neoscroll')
 
-require('plugins.lsp')
+require('plugins.lspsaga')
 require('plugins.compe')
 
 
@@ -52,3 +52,6 @@ require('plugins.snippets')
 require('colorscheme')
 require('autocmds')
 
+require('lsp')
+require('lsp.ls-go')
+require('lsp.ls-lua')
