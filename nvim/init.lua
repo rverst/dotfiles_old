@@ -32,6 +32,7 @@ require('plugins.colorizer')
 require('plugins.neoscroll')
 
 require('plugins.lsp')
+require('plugins.lspsaga')
 require('plugins.compe')
 
 
