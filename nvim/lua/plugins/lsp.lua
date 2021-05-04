@@ -92,7 +92,6 @@ elseif sys == OS.Windows then
 end
 
 if vim.fn.empty(vim.fn.glob(sumneko_bin)) > 0 then
-    print('sumneko not found: ' .. sumneko_bin)
     return
 end
 

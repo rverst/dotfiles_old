@@ -21,6 +21,35 @@ local colors = {
     info_yellow = gc.base0A,
 }
 
+local modes = {
+	['c']  = {'COMMAND-LINE',      colors.red},
+	['ce'] = {'NORMAL EX',         colors.red},
+	['cv'] = {'EX',                colors.error_red},
+	['i']  = {'INSERT',            colors.green},
+	['ic'] = {'INS-COMPLETE',      colors.light_green},
+	['n']  = {'NORMAL',            colors.purple},
+	['no'] = {'OPERATOR-PENDING',  colors.purple},
+	['r']  = {'HIT-ENTER',         colors.cyan},
+	['r?'] = {':CONFIRM',          colors.cyan},
+	['rm'] = {'--MORE',            colors.cyan},
+	['R']  = {'REPLACE',           colors.orange},
+	['Rv'] = {'VIRTUAL',           colors.orange},
+	['s']  = {'SELECT',            colors.magenta},
+	['S']  = {'SELECT',            colors.magenta},
+	['']   = {'SELECT',            colors.magenta},
+	['t']  = {'TERMINAL',          colors.orange},
+	['v']  = {'VISUAL',            colors.blue},
+	['V']  = {'VISUAL LINE',       colors.blue},
+	['']   = {'VISUAL BLOCK',      colors.blue},
+	['!']  = {'SHELL',             colors.yellow},
+
+	-- libmodal
+	['TABS']    = colors.blue,
+	['BUFFERS'] = colors.red,
+	['TABLES']  = colors.orange,
+}
+
+
 local condition = require('galaxyline.condition')
 local gls = gl.section
 gl.short_line_list = {'NvimTree', 'vista', 'dbui', 'packer'}
@@ -28,31 +57,26 @@ gl.short_line_list = {'NvimTree', 'vista', 'dbui', 'packer'}
 gls.left[1] = {
     ViMode = {
         provider = function()
-            -- auto change color according the vim mode
-            local mode_color = {
-                n = colors.blue,
-                i = colors.green,
-                v = colors.purple,
-                [''] = colors.purple,
-                V = colors.purple,
-                c = colors.magenta,
-                no = colors.blue,
-                s = colors.orange,
-                S = colors.orange,
-                [''] = colors.orange,
-                ic = colors.yellow,
-                R = colors.red,
-                Rv = colors.red,
-                cv = colors.blue,
-                ce = colors.blue,
-                r = colors.cyan,
-                rm = colors.cyan,
-                ['r?'] = colors.cyan,
-                ['!'] = colors.blue,
-                t = colors.blue
-            }
-            vim.api.nvim_command('hi GalaxyViMode guifg=' .. mode_color[vim.fn.mode()])
-            return '▊ '
+
+            local c = nil
+            local t = nil
+
+            if vim.g.libmodalActiveModeName then
+                t = vim.g.libmodalActiveModeName
+                c = modes[t]
+            else
+                local mm = vim.fn.mode(true)
+                local mm2 = vim.fn.mode(false)
+
+                print(mm)
+                print(mm2)
+                local cm = modes[vim.fn.mode(true)] or modes[vim.fn.mode(false)]
+
+                t = cm[1]
+                c = cm[2]
+            end
+            vim.api.nvim_command('hi GalaxyViMode guifg=' .. colors.grey .. ' guibg=' .. c)
+            return ' ' .. t .. ' '
         end,
         highlight = {colors.red, colors.bg}
     }
@@ -106,15 +130,36 @@ gls.left[6] = {
 }
 
 gls.right[1] = {
-    DiagnosticError = {provider = 'DiagnosticError', icon = '  ', highlight = {colors.error_red, colors.bg}}
+    DiagnosticError = {
+        provider = 'DiagnosticError',
+        icon = '  ',
+        highlight = {colors.error_red, colors.bg}
+    }
 }
-gls.right[2] = {DiagnosticWarn = {provider = 'DiagnosticWarn', icon = '  ', highlight = {colors.orange, colors.bg}}}
+gls.right[2] = {
+    DiagnosticWarn = {
+        provider = 'DiagnosticWarn',
+        icon = '  ',
+        highlight = {colors.orange, colors.bg}
+    }
+}
 
 gls.right[3] = {
-    DiagnosticHint = {provider = 'DiagnosticHint', icon = '  ', highlight = {colors.vivid_blue, colors.bg}}
+    DiagnosticHint = {
+        provider = 'DiagnosticHint',
+        icon = '  ',
+        highlight = {
+            colors.vivid_blue, colors.bg}
+    }
 }
 
-gls.right[4] = {DiagnosticInfo = {provider = 'DiagnosticInfo', icon = '  ', highlight = {colors.info_yellow, colors.bg}}}
+gls.right[4] = {
+    DiagnosticInfo = {
+        provider = 'DiagnosticInfo',
+        icon = '  ',
+        highlight = {colors.info_yellow, colors.bg}
+    }
+}
 
 gls.right[5] = {
     ShowLspClient = {
@@ -132,7 +177,7 @@ gls.right[5] = {
 gls.right[6] = {
     LineInfo = {
         provider = 'LineColumn',
-        separator = '  ',
+        separator = ' ',
         separator_highlight = {'NONE', colors.bg},
         highlight = {colors.grey, colors.bg}
     }
@@ -200,8 +245,17 @@ gls.short_line_left[1] = {
 }
 
 gls.short_line_left[2] = {
-    SFileName = {provider = 'SFileName', condition = condition.buffer_not_empty, highlight = {colors.grey, colors.bg}}
+    SFileName = {
+        provider = 'SFileName',
+        condition = condition.buffer_not_empty,
+        highlight = {colors.grey, colors.bg}
+    }
 }
 
-gls.short_line_right[1] = {BufferIcon = {provider = 'BufferIcon', highlight = {colors.grey, colors.bg}}}
+gls.short_line_right[1] = {
+    BufferIcon = {
+        provider = 'BufferIcon',
+        highlight = {colors.grey, colors.bg}
+    }
+}
 
