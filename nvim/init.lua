@@ -26,6 +26,7 @@ require('plugins.file-icons')
 
 require('settings')
 
+require('plugins.gitsigns')
 require('plugins.bufferline')
 require('plugins.statusline')
 require('plugins.colorizer')
@@ -42,7 +43,6 @@ require('plugins.treesitter')
 require('plugins.telescope')
 require('plugins.nvimtree')
 
-require('plugins.gitsigns')
 require('plugins.autopairs')
 require('plugins.lspkind')
 

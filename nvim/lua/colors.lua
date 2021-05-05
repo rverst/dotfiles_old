@@ -1,3 +1,4 @@
+local utils = require('utils')
 local c = vim.cmd
 local g = vim.g
 
@@ -80,3 +81,8 @@ g.colors = {
     light_green = '#CDEE67',
 }
 
+
+c('hi GitSignsAdd guifg=' .. g.colors.base0C)
+c('hi GitSignsChange guifg=' .. g.colors.base09)
+c('hi GitSignsDelete guifg=' .. g.colors.base0F)
+c('hi GitSignsChangeDelete guifg=' .. g.colors.base0E)
