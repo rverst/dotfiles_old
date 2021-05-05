@@ -1,9 +1,9 @@
 -- colors
 
-local t = vim.g.colors.theme
+local c = vim.g.colors
 
-local bar_bg = '#' .. t.base01
-local bar_fg = '#' .. t.base04
+local bar_bg = c.bg.hex
+local bar_fg = c.dark3.hex
 
 require 'bufferline'.setup {
     options = {
@@ -39,20 +39,20 @@ require 'bufferline'.setup {
             },
             tab_selected = {
                 guifg = '#550022',
-                guibg = '#' .. t.base00,
+                guibg = c.bg.hex,
             },
             tab_close = {
                 guifg = bar_fg,
-                guibg = '#' .. t.base00,
+                guibg = c.bg.hex,
             },
             buffer_visible = {
-                guifg = '#' .. t.base09,
+                guifg = c.yellow.hex,
                 guibg = bar_bg,
                 gui = 'italic'
             },
             buffer_selected = {
-                guifg = '#' .. t.base0B,
-                guibg = '#' .. t.base00,
+                guifg = c.green.hex,
+                guibg = c.bg.hex,
                 gui = "bold"
             },
             diagnostic = {
@@ -65,7 +65,7 @@ require 'bufferline'.setup {
             },
             diagnostic_selected = {
                 guifg = bar_fg,
-                guibg = '#' .. t.base00,
+                guibg = c.bg.hex,
                 gui = "bold,italic"
             },
             info = {
@@ -79,7 +79,7 @@ require 'bufferline'.setup {
             },
             info_selected = {
                 guifg = bar_fg,
-                guibg = '#' .. t.base00,
+                guibg = c.bg.hex,
                 gui = "bold,italic",
                 guisp = '#048830'
             },
@@ -94,7 +94,7 @@ require 'bufferline'.setup {
             },
             info_diagnostic_selected = {
                 guifg = bar_fg,
-                guibg = '#' .. t.base00,
+                guibg = c.bg.hex,
                 gui = "bold,italic",
                 guisp = '#048830'
             },
@@ -109,7 +109,7 @@ require 'bufferline'.setup {
             },
             warning_selected = {
                 guifg = bar_fg,
-                guibg = '#' .. t.base00,
+                guibg = c.bg.hex,
                 gui = "bold,italic",
                 guisp = '#048830'
             },
@@ -124,9 +124,9 @@ require 'bufferline'.setup {
             },
             warning_diagnostic_selected = {
                 guifg = bar_fg,
-                guibg = '#' .. t.base00,
+                guibg = c.bg.hex,
                 gui = "bold,italic",
-                guisp = '#' .. t.base0F
+                guisp = c.red.hex
             },
             error = {
                 guifg = bar_fg,
@@ -139,7 +139,7 @@ require 'bufferline'.setup {
             },
             error_selected = {
                 guifg = bar_fg,
-                guibg = '#' .. t.base00,
+                guibg = c.bg.hex,
                 gui = "bold,italic",
                 guisp = '#048830'
             },
@@ -154,7 +154,7 @@ require 'bufferline'.setup {
             },
             error_diagnostic_selected = {
                 guifg = bar_fg,
-                guibg = '#' .. t.base00,
+                guibg = c.bg.hex,
                 gui = "bold,italic",
                 guisp = '#048830'
             },
@@ -173,7 +173,7 @@ require 'bufferline'.setup {
             duplicate_selected = {
                 guifg = bar_fg,
                 gui = "italic",
-                guibg = '#' .. t.base00,
+                guibg = c.bg.hex,
             },
             duplicate_visible = {
                 guifg = bar_fg,
@@ -203,12 +203,12 @@ require 'bufferline'.setup {
             },
             pick_selected = {
                 guifg = bar_fg,
-                guibg = '#' .. t.base00,
+                guibg = c.bg.hex,
                 gui = "bold,italic"
             },
             pick_visible = {
                 guifg = bar_fg,
-                guibg = '#' .. t.base00,
+                guibg = c.bg.hex,
                 gui = "bold,italic"
             },
             pick = {

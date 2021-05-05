@@ -80,8 +80,8 @@ vim.api.nvim_set_keymap('n', '<Leader>fm', [[<Cmd> Neoformat<CR>]], opt)
 local c = vim.cmd
 local g = vim.g
 
-c('hi TelescopeBorder         guifg=' .. g.colors.border)
-c('hi TelescopePromptBorder   guifg=' .. g.colors.border)
-c('hi TelescopeResultsBorder  guifg=' .. g.colors.border)
-c('hi TelescopePreviewBorder  guifg=' .. g.colors.border)
+c('hi TelescopeBorder         guifg=' .. g.colors.border.hex)
+c('hi TelescopePromptBorder   guifg=' .. g.colors.border.hex)
+c('hi TelescopeResultsBorder  guifg=' .. g.colors.border.hex)
+c('hi TelescopePreviewBorder  guifg=' .. g.colors.border.hex)
 

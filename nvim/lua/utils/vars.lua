@@ -11,9 +11,7 @@ function M:init()
   self.vimPath = vim.fn.stdpath('config')
   self.dataPath = vim.fn.stdpath('data')
 
-  self.testPath = fn.joinPath(self.vimPath, 'foo', 'bar')
 end
 
 M:init()
-print(M.testPath)
 return M
