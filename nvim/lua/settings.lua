@@ -3,7 +3,7 @@ local cmd = vim.cmd
 local fn = vim.fn
 
 local cmdheight = 2
-local indent = 4
+local indent = 2
 local scrolloff = 8
 local undoDir = fn.stdpath('cache') .. '/undo'
 

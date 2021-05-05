@@ -8,24 +8,6 @@ OS = {
     WSL=5
 }
 
-function M.getOs()
-    if vim.fn.has('macunix') ~= 0 then
-        return OS.MacOs
-    elseif vim.fn.has('unix') ~= 0 then
-        local rel = vim.loop.os_uname().release
-        if string.find(rel, 'WSL') ~= nil then
-            return OS.WSL
-        end
-        return OS.Linux
-    elseif vim.fn.has('win32') ~= 0 then
-        return OS.Windows
-    else
-        return OS.Unknown
-    end
-end
-
-
-
 local scopes = {o = vim.o, b = vim.bo, w = vim.wo}
 
 -- set options, scopes are 'o' == global, 'b' == buffer, 'w' == window

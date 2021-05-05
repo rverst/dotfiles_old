@@ -49,7 +49,7 @@ local on_attach = function(client, bufnr)
   -- end
 end
 
-local utils = require('utils')
+local v = require('utils.vars')
 local lspconfig = require('lspconfig')
 local servers = { 'gopls', 'clangd' }
 
@@ -59,7 +59,7 @@ end
 
 -- sumneko settings
 local xdg_data = os.getenv('XDG_DATA_HOME')
-local sys = utils.getOs()
+local sys = v.os
 local sumneko_root = nil
 -- ToDo: introduce join-path method in utils
 local pathsep = "/"

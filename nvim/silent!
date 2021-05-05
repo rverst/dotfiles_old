@@ -1,0 +1,10 @@
+local M = {}
+local fn = require('utils')
+
+function M:init()
+    print(fn.getOs())
+
+end
+
+M:init()
+return M

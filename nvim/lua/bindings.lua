@@ -1,4 +1,5 @@
 local utils = require('utils')
+local var = require('utils.vars')
 
 -- clear search highlight on <CR>
 utils.map('n', '<CR>', '<cmd>noh<CR><CR>')
@@ -36,9 +37,8 @@ utils.map('n', '<F2>', '<C-w>=')
 
 
 -- new terminal
-local os = utils.getOs()
 local term = ''
-if os == OS.Windows then
+if var.isWindows then
     term = 'pwsh.exe'
 else
     term = 'zsh'
