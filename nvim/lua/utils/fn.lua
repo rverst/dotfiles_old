@@ -83,7 +83,7 @@ M.highlight = function(group, fg, bg, attr, sp)
       table.insert(x, 'ctermfg='..fg)
       table.insert(x, 'guifg='..fg)
     else
-  --    table.insert(x, 'ctermfg='..fg.term)
+      table.insert(x, 'ctermfg='..fg.term)
       table.insert(x, 'guifg='..fg.hex)
     end
   end
@@ -92,7 +92,7 @@ M.highlight = function(group, fg, bg, attr, sp)
       table.insert(x, 'ctermbg='..bg)
       table.insert(x, 'guibg='..bg)
     else
---      table.insert(x, 'ctermbg='..bg.term)
+      table.insert(x, 'ctermbg='..bg.term)
       table.insert(x, 'guibg='..bg.hex)
     end
   end
@@ -102,14 +102,13 @@ M.highlight = function(group, fg, bg, attr, sp)
   end
   if sp then
     if type(sp) == 'string' then
-      table.insert(c, 'guisp='..sp)
+      table.insert(x, 'guisp='..sp)
     else
       table.insert(x, 'guisp='..sp.hex)
     end
   end
 
   local cmd = 'highlight '..table.concat(x, ' ')
-  print(cmd)
   vim.cmd(cmd)
 end
 

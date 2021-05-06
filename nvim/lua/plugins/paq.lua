@@ -22,6 +22,8 @@ p.paq 'kabouzeid/nvim-lspinstall'
 p.paq 'glepnir/lspsaga.nvim'
 
 p.paq {'nvim-treesitter/nvim-treesitter', run='TSUpdate'}
+p.paq {'nvim-treesitter/playground'}
+
 p.paq 'neovim/nvim-lspconfig'
 p.paq 'hrsh7th/nvim-compe'
 p.paq 'onsails/lspkind-nvim'

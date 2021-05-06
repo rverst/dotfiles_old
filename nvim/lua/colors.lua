@@ -34,20 +34,28 @@ c.red_dark      = calcColors('#D75F5F')
 c.red_error     = calcColors('#E04223')
 c.green         = calcColors('#8EB33B')
 c.green_light   = calcColors('#CDCE23')
+c.green_dark    = calcColors('#6B8E23')
 c.yellow        = calcColors('#D0B03C')
 c.yellow_light  = calcColors('#FFE377')
 c.blue          = calcColors('#72B3CC')
-c.blue_light    = calcColors('#0CD9F0')
-c.magenta       = calcColors('#C8A0D1')
-c.magenta_light = calcColors('#FBB1F9')
+c.blue_light    = calcColors('#9CD9F0')
+c.magenta       = calcColors('#8B008B')
+c.magenta_light = calcColors('#DA70D6')
 c.cyan          = calcColors('#218693')
 c.cyan_light    = calcColors('#77dfd8')
 c.border        = calcColors('#BDAE92')
 c.acc1          = calcColors('#D5C4A1')
 c.acc2          = calcColors('#EBEDD0')
+c.orange        = calcColors('#FE8019')
+c.orange_light  = calcColors('#FABD2F')
+c.purple        = calcColors('#C8A0D1')
+c.purple_light  = calcColors('#FBB1F9')
+c.comment       = calcColors('#656565')
 
 c.bg            = c.dark1
 c.fg            = c.white_dark
+
+c.none          = { hex = 'NONE', term = 'NONE' }
 
 local theme = {
   base00 = c.bg.raw,
@@ -58,26 +66,18 @@ local theme = {
   base05 = c.acc1.raw,
   base06 = c.acc2.raw,
   base07 = c.fg.raw,
-  base08 = c.red_error.raw,
+  base08 = c.red.raw,
   base09 = c.yellow.raw,
   base0A = c.yellow_light.raw,
   base0B = c.green_light.raw,
   base0C = c.green.raw,
-  base0D = c.blue.raw,
+  base0D = c.orange.raw,
   base0E = c.red_light.raw,
-  base0F = c.red.raw,
+  base0F = c.red_dark.raw,
 }
 
 vim.g.mytheme = theme
 vim.g.colors = c
-
--- colors.black       = { gui='#000000', term=0 }
--- colors.gray1       = { gui='#3C3836' }
--- colors.gray2       = { gui='#504945' }
--- colors.gray3       = { gui='#8A8A8A' }
--- colors.red         = { gui='#C75646' }
--- colors.red_ligh    = { gui='#FB4934' }
--- colors.red_dark    = { gui='#D75F5F' }
 
 -- themes['smyck'] = {
 --  base00 = '#232323', base01 = '#3c3836', base02 = '#504945', base03 = '#8a8a8a',
@@ -108,44 +108,6 @@ vim.g.colors = c
 -- 	base04 = '#bdae93'; base05 = '#d5c4a1'; base06 = '#ebdbb2'; base07 = '#fbf1c7';
 -- 	base08 = '#fb4934'; base09 = '#fe8019'; base0A = '#fabd2f'; base0B = '#b8bb26';
 -- 	base0C = '#8ec07c'; base0D = '#83a598'; base0E = '#d3869b'; base0F = '#d65d0e';
--- }
--- themes['smyck_orig'] = {
---  base00 = '#000000', base01 = '#C75646', base02 = '#8EB33B', base03 = '#D0B03C',
---  base04 = '#4E90A7', base05 = '#C8A0D1', base06 = '#218693', base07 = '#B0B0B0',
---  base08 = '#5D5D5D', base09 = '#E06990', base0A = '#CDEE69', base0B = '#FFE377',
---  base0C = '#9CD9F0', base0D = '#FBB1F9', base0E = '#77DFD8', base0F = '#F7F7F7',
--- }
-
-
--- table for reused colors
--- g.colors = {
---     theme = theme,
---     border = '#' .. theme.base04,
-
---     base00 = '#' .. theme.base00,
---     base01 = '#' .. theme.base01,
---     base02 = '#' .. theme.base02,
---     base03 = '#' .. theme.base03,
---     base04 = '#' .. theme.base04,
---     base05 = '#' .. theme.base05,
---     base06 = '#' .. theme.base06,
---     base07 = '#' .. theme.base07,
---     base08 = '#' .. theme.base08,
---     base09 = '#' .. theme.base09,
---     base0A = '#' .. theme.base0A,
---     base0B = '#' .. theme.base0B,
---     base0C = '#' .. theme.base0C,
---     base0D = '#' .. theme.base0D,
---     base0E = '#' .. theme.base0E,
---     base0F = '#' .. theme.base0F,
-
---     purple      = '#C8A0D1',
---     cyan        = '#77DFD8',
---     blue        = '#218693',
---     yellow      = '#FABD2f',
---     orange      = '#FE8019',
---     light_blue  = '#9CD9F0',
---     light_green = '#CDEE67',
 -- }
 
 

@@ -1,64 +1,42 @@
 local gl = require('galaxyline')
 local gls = gl.section
-local gc = vim.g.colors
-
-local colors = {
-    bg = gc.dark3.hex,
-    bgm = gc.dark2.hex,
-    black = gc.black.hex,
-    yellow = gc.yellow_light.hex,
-    dark_yellow = gc.yellow.hex,
-    cyan = gc.cyan.hex,
-    green = gc.green.hex,
-    light_green = gc.green_light.hex,
-    string_orange = gc.yellow.hex,
-    orange = gc.yellow.hex,
-    purple = gc.magenta_light.hex,
-    magenta = gc.magenta.hex,
-    grey = gc.gray.hex,
-    blue = gc.blue.hex,
-    vivid_blue = gc.blue_light.hex,
-    light_blue = gc.cyan.hex,
-    red = gc.red.hex,
-    error_red = gc.red_error.hex,
-    info_yellow = gc.yellow.hex,
-}
+local c = vim.g.colors
 
 local modes = {
-	['c']  = {'CMD',               colors.string_orange},
-	['ce'] = {'NORMAL EX',         colors.red},
-	['cv'] = {'EX',                colors.error_red},
-	['i']  = {'INSERT',            colors.green},
-	['ic'] = {'INS-COMPLETE',      colors.light_green},
-	['n']  = {'NORMAL',            colors.vivid_blue},
-	['no'] = {'OPERATOR-PENDING',  colors.purple},
-	['r']  = {'HIT-ENTER',         colors.cyan},
-	['r?'] = {':CONFIRM',          colors.cyan},
-	['rm'] = {'--MORE',            colors.cyan},
-	['R']  = {'REPLACE',           colors.orange},
-	['Rv'] = {'VIRTUAL',           colors.orange},
-	['s']  = {'SELECT',            colors.magenta},
-	['S']  = {'SELECT',            colors.magenta},
-	['']   = {'SELECT',            colors.magenta},
-	['t']  = {'TERMINAL',          colors.orange},
-	['v']  = {'VISUAL',            colors.blue},
-	['V']  = {'VISUAL LINE',       colors.blue},
-	['']   = {'VISUAL BLOCK',      colors.blue},
-	['!']  = {'SHELL',             colors.yellow},
+	['c']  = {'COMMAND',               c.orange_light.hex},
+	['n']  = {'NORMAL',            c.blue.hex},
+	['ce'] = {'NORMAL EX',         c.red.hex},
+	['cv'] = {'EX',                c.red_error.hex},
+	['i']  = {'INSERT',            c.green.hex},
+	['ic'] = {'INS-COMPLETE',      c.green_light.hex},
+	['no'] = {'OPERATOR-PENDING',  c.purple.hex},
+	['r']  = {'HIT-ENTER',         c.cyan.hex},
+	['r?'] = {':CONFIRM',          c.cyan.hex},
+	['rm'] = {'--MORE',            c.cyan.hex},
+	['R']  = {'REPLACE',           c.orange.hex},
+	['Rv'] = {'VIRTUAL',           c.orange.hex},
+	['s']  = {'SELECT',            c.magenta.hex},
+	['S']  = {'SELECT',            c.magenta.hex},
+	['']   = {'SELECT',            c.magenta.hex},
+	['t']  = {'TERMINAL',          c.orange.hex},
+	['v']  = {'VISUAL',            c.blue_light.hex},
+	['V']  = {'VISUAL LINE',       c.blue_light.hex},
+	['VV'] = {'VISUAL BLOCK',      c.blue_light.hex},
+	['!']  = {'SHELL',             c.yellow_light.hex},
 
 	-- libmodal
-	['TABS']    = colors.blue,
-	['BUFFERS'] = colors.red,
-	['TABLES']  = colors.orange,
+	['TABS']    = c.blue.hex,
+	['BUFFERS'] = c.red.hex,
+	['TABLES']  = c.orange.hex,
 }
 
 local separators =
 {
-	left = ' ',
-	right = ' '
+	left = '│',
+	right = '│'
 }
 
-local function all(...)
+local all = function(...)
     local args = {...}
     return function()
         for _, fn in ipairs(args) do
@@ -68,48 +46,94 @@ local function all(...)
     end
 end
 
-local function bufferNotEmpty()
+local bufferNotEmpty = function()
 	return vim.fn.empty(vim.fn.expand('%:t')) ~= 1
 end
 
-local function checkwidth()
-	return (vim.fn.winwidth(0) / 2) > 40
+local checkwidth = function()
+	return (vim.fn.winwidth(0) / 2) > 50
 end
 
-local function findGitRoot()
+local findGitRoot = function()
 	return require('galaxyline/provider_vcs').get_git_dir(vim.fn.expand('%:p:h'))
 end
 
-local function getFileIconColor()
+local fileFormat = function()
+  local f = vim.bo.fileformat
+  if f == 'unix' then
+    return 'LF'
+  elseif f == 'mac' then
+    return 'CR'
+  else
+    return 'CRLF'
+  end
+
+end
+
+local getFileIconColor = function()
 	return require('galaxyline/provider_fileinfo').get_file_icon_color()
 end
 
-local function lineColumn()
-    return function() return vim.fn.line('.') .. ':' .. vim.fn.col('.') end
+local lineColumn = function()
+  return function() return vim.fn.line('.') .. ':' .. vim.fn.col('.') end
 end
+
+local linePercent = function()
+  return function()
+    return require('galaxyline/provider_fileinfo').current_line_percent():gsub('%s+', '')
+  end
+end
+
+local lspActive = function()
+  local c = require('galaxyline/provider_lsp').get_lsp_client()
+  return c ~= 'No Active Lsp'
+end
+
+local lspClient = function()
+  return function()
+    local c = require('galaxyline/provider_lsp').get_lsp_client()
+    print(c)
+    if c == 'No Active Lsp' then
+      return 'n/a'
+    elseif c == 'sumneko_lua' then
+      return 'lua'
+    end
+    return c
+  end
+end
+
+local shortListShow = function()
+  local t = vim.bo.filetype:lower()
+  if t == 'nvimtree' then
+    return false
+  end
+  return true
+end
+
+local bufferType = function()
+  return vim.bo.filetype:lower()
+end
+
 
 local negated = function(f)
     return function() return not f() end
 end
 
 local printer = function(s)
-    return function() return s end
+  return function() return s end
 end
 
 local space = printer(' ')
 
-gl.short_line_list =
-{
-	'dbui',
-	'diff',
-	'peekaboo',
-	'undotree',
-	'vista',
-	'vista_markdown'
-}
+gl.short_line_list = { 'defx', 'packager', 'vista', 'NvimTree' }
 
 gls.left =
 {
+  {LeftStart = {
+    provider = space,
+		highlight = {c.dark3.hex, c.dark3.hex},
+  }},
+
 	{ViMode = {
 		provider = function() -- auto change color according the vim mode
 			local mode_color = nil
@@ -119,185 +143,185 @@ gls.left =
 				mode_name = vim.g.libmodalActiveModeName
 				mode_color = modes[mode_name]
 			else
-				local current_mode = modes[vim.fn.mode(true)] or modes[vim.fn.mode(false)]
+        local m = vim.fn.mode()
+        if m:byte() == 22 then
+          m = 'VV'
+        end
+
+        local current_mode = modes[m]
+        if current_mode == nil then
+          current_mode = { '??? |'..m..'|'..m:byte()..'|', c.red_error.hex }
+        end
 
 				mode_name = current_mode[1]
 				mode_color = current_mode[2]
 			end
 
---			require('highlite').highlight('GalaxyViMode', {fg=mode_color, style='bold'})
-            vim.cmd('hi GalaxyViMode gui=bold guifg=' .. mode_color)
+      vim.cmd('hi GalaxyViMode gui=bold guifg=' .. mode_color)
 			return mode_name..' '
 		end,
-		icon = '▊ ',
-		highlight = {colors.bg, colors.bg},
+		highlight = {c.dark3.hex, c.dark3.hex},
 		separator = separators.right,
-		separator_highlight = {colors.bg, getFileIconColor}
+		separator_highlight = {c.dark1.hex, c.dark3.hex}
 	}},
 
 	{FileIcon = {
 		provider  = {space, 'FileIcon'},
-		highlight = {colors.bg, getFileIconColor},
-		separator = separators.left,
-		separator_highlight = {colors.bg, getFileIconColor}
+		highlight = {getFileIconColor, c.dark3.hex},
 	}},
 
 	{FileName = {
-		provider  = {space, 'FileName', 'FileSize'},
+		provider  = {space, 'FileName'},
 		condition = bufferNotEmpty,
-		highlight = {colors.text, colors.bg, 'bold'}
+		highlight = {c.acc2.hex, c.dark3.hex, 'bold'}
 	}},
 
+	{FileSize = {
+		provider  = {space, 'FileSize'},
+		condition = bufferNotEmpty,
+		highlight = {c.acc1.hex, c.dark3.hex, 'italic'}
+	}},
+
+	{LspClient = {
+		provider  = {space, printer(' '), lspClient()},
+		condition = lspActive,
+		highlight = {getFileIconColor, c.dark3.hex}
+	}},
 
 	{LeftEnd = {
-		provider = printer(separators.left),
-		condition = negated(findGitRoot),
-		highlight = {colors.bgm, findGitRoot() and colors.green_dark or colors.bg}
+		provider = space,
+		highlight = {c.dark3.hex, c.dark3.hex},
 	}},
 
 	{DiagnosticError = {
 		provider = 'DiagnosticError',
-		icon = 'Ⓧ ',
-		highlight = {colors.red, colors.bgm},
+		icon = ' ',
+		highlight = {c.red.hex, c.dark2.hex},
 		separator = ' ',
-		separator_highlight = {colors.bgm, colors.bgm},
+		separator_highlight = {c.dark2.hex, c.dark2.hex},
 	}},
 
 	{DiagnosticWarn = {
 		provider = 'DiagnosticWarn',
-		icon = '⚠️ ',
-		highlight = {colors.yellow, colors.bgm},
+		icon = ' ',
+		highlight = {c.yellow_light.hex, c.dark2.hex},
 		separator = ' ',
-		separator_highlight = {colors.bgm, colors.bgm},
+		separator_highlight = {c.dark2.hex, c.dark2.hex},
 	}},
 
 	{DiagnosticHint = {
 		provider = 'DiagnosticHint',
-		icon = '💡',
-		highlight = {colors.magenta, colors.bgm},
+		icon = 'ﯧ ',
+		highlight = {c.yellow.hex, c.dark2.hex},
 		separator = ' ',
-		separator_highlight = {colors.bgm, colors.bgm},
+		separator_highlight = {c.dark2.hex, c.dark2.hex},
 	}},
 
 	{DiagnosticInfo = {
 		provider = 'DiagnosticInfo',
-		icon = 'ⓘ ',
-		highlight = {colors.white, colors.bgm},
+		icon = ' ',
+		highlight = {c.yellow.hex, c.dark2.hex},
 		separator = ' ',
-		separator_highlight = {colors.bgm, colors.bgm},
+		separator_highlight = {c.dark2.hex, c.dark2.hex},
 	}},
 } -- gls.left
 
 gls.right =
 {
+	{RightStart = {
+		provider = space,
+		condition = checkwidth,
+		highlight = {c.dark3.hex, c.dark3.hex},
+	}},
+
 	{Vista = {
 		provider = 'VistaPlugin',
 		condition = function() return vim.fn.exists(':Vista') ~= 0 end,
-		highlight = {colors.text, colors.bgm},
-	}},
-
-	{RightBegin = {
-		provider = space,
-		condition = checkwidth,
-		highlight = {colors.bgm, colors.bg},
-		separator = separators.right,
-		separator_highlight = {colors.bgm, colors.bg}
+		highlight = {c.acc2.hex, c.dark3.hex},
 	}},
 
 	{DiffAdd = {
 		provider = 'DiffAdd',
 		condition = all(checkwidth, findGitRoot),
 		icon = '+',
-		highlight = {colors.green_light, colors.bg},
+		highlight = {c.green_light.hex, c.dark3.hex},
 	}},
 
 	{DiffModified = {
 		provider = 'DiffModified',
 		condition = all(checkwidth, findGitRoot),
 		icon = '~',
-		highlight = {colors.orange_light, colors.bg},
+		highlight = {c.orange_light.hex, c.dark3.hex},
 	}},
 
 	{DiffRemove = {
 		provider = 'DiffRemove',
 		condition = all(checkwidth, findGitRoot),
 		icon = '-',
-		highlight = {colors.red_light, colors.bg},
+		highlight = {c.red_light.hex, c.dark3.hex},
 	}},
 
 	{GitBranch = {
-		provider = { printer('  '), 'GitBranch', space},
+		provider = { printer(' '), 'GitBranch', space},
 		condition = findGitRoot,
-		highlight = {colors.orange, colors.green_dark, 'bold'},
-		separator = separators.left,
-		separator_highlight = {colors.bgm, colors.green_dark},
-	}},
-
-	{FileFormatSep = {
-		provider = printer(separators.left),
-		highlight = {getFileIconColor, colors.bg},
+		highlight = {c.orange.hex, c.dark3.hex, 'bold'},
 	}},
 
 	{FileFormat = {
-		provider = {space, 'FileFormat', space},
-		highlight = {colors.text, colors.bg},
+		provider = {space, fileFormat, space},
+		highlight = {c.acc1.hex, c.dark3.hex},
+		separator = separators.left,
+		separator_highlight = {c.dark1.hex, c.dark3.hex}
 	}},
 
-	{FileEncode = {
-		provider = {space, 'FileEncode', space},
-		highlight = {colors.black, getFileIconColor, 'bold'},
-		separator = '',
-		separator_highlight = {getFileIconColor, colors.bg},
-	}},
+  {LineColumn = {
+    provider = { lineColumn() },
+    condition = bufferNotEmpty,
+    highlight = {c.white.hex, c.dark3.hex},
+    separator = ' ',
+    separator_highlight = {c.dark3.hex, c.dark3.hex},
+  }},
 
-	{FileSep = {
-		provider = printer(separators.right),
-		highlight = {getFileIconColor, colors.bg},
-	}},
+  {LinePercent = {
+    provider = { printer('['), linePercent(), printer(']') },
+    condition = bufferNotEmpty,
+    highlight = {c.acc1.hex, c.dark3.hex},
+    separator = ' ',
+    separator_highlight = {c.dark3.hex, c.dark3.hex},
+  }},
 
-	{LineColumn = {
-        provider = lineColumn(),
-		condition = bufferNotEmpty,
-		highlight = {colors.text, colors.bg},
-		separator = ' ',
-		separator_highlight = {colors.bg, colors.bg},
-	}},
-
-	{PerCentSeparator = {
-		provider = printer(separators.left),
-		highlight = {colors.magenta_dark, colors.bg},
-		separator = ' ',
-		separator_highlight = {colors.bg, colors.bg},
-	}},
-
-	{PerCent = {
-		provider = {space, 'LinePercent'},
-		highlight = {colors.white, colors.magenta_dark},
-	}},
-
-	{ScrollBar = {
-		provider = 'ScrollBar',
-		highlight = {colors.gray, colors.magenta_dark},
-	}}
+  {RightEnd = {
+    provider = space,
+		highlight = {c.dark3.hex, c.dark3.hex},
+  }},
 } -- gls.right
 
-gls.short_line_left =
-{
-	{BufferType = {
-		provider = {space, space, 'FileTypeName', space},
-		highlight = {colors.black, colors.purple, 'bold'},
-		separator = separators.right,
-		separator_highlight = {colors.purple, colors.bgm}
-	}}
+gls.short_line_left = {
+  {ShortLeftStart = {
+    provider = space,
+    condition = all(bufferNotEmpty, shortListShow),
+    highlight = {c.dark2.hex, c.dark2.hex}
+  }},
+
+	{ShortFileName = {
+		provider  = {space, 'FileIcon', 'FileName'},
+    condition = all(bufferNotEmpty, shortListShow),
+		highlight = {c.acc1.hex, c.dark2.hex, 'bold'}
+	}},
 }
 
-gls.short_line_right =
-{
-	{BufferIcon = {
-		provider = 'BufferIcon',
-		highlight = {colors.black, colors.purple, 'bold'},
-		separator = separators.left,
-		separator_highlight = {colors.purple, colors.bgm}
-	}}
-}
+gls.short_line_right = {
+  {ShortBufferType = {
+    provider = bufferType,
+    condition = shortListShow,
+    highlight = {c.dark2.hex, c.dark2.hex},
+  }},
 
+  {ShortLineColumn = {
+    provider = { lineColumn() },
+    condition = all(bufferNotEmpty, shortListShow),
+    highlight = {c.acc1.hex, c.dark2.hex},
+    separator = ' ',
+    separator_highlight = {c.dark2.hex, c.dark2.hex},
+  }},
+}
