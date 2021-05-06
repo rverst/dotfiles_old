@@ -64,10 +64,8 @@ local fileFormat = function()
     return 'LF'
   elseif f == 'mac' then
     return 'CR'
-  else
-    return 'CRLF'
   end
-
+  return 'CRLF'
 end
 
 local getFileIconColor = function()
