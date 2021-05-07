@@ -70,8 +70,10 @@ vim.api.nvim_set_keymap(
 )
 
 vim.api.nvim_set_keymap('n', '<Leader>fb', [[<Cmd>lua require('telescope.builtin').buffers()<CR>]], opt)
-vim.api.nvim_set_keymap('n', '<Leader>fh', [[<Cmd>lua require('telescope.builtin').help_tags()<CR>]], opt)
-vim.api.nvim_set_keymap('n', '<Leader>fo', [[<Cmd>lua require('telescope.builtin').oldfiles()<CR>]], opt)
+vim.api.nvim_set_keymap('n', '<Leader>fhh', [[<Cmd>lua require('telescope.builtin').help_tags()<CR>]], opt)
+vim.api.nvim_set_keymap('n', '<Leader>fhi', [[<Cmd>lua require('telescope.builtin').highlights()<CR>]], opt)
+vim.api.nvim_set_keymap('n', '<Leader>fo', [[<Cmd>lua require('telescope.builtin').tags()<CR>]], opt)
 vim.api.nvim_set_keymap('n', '<Leader>fn', [[<Cmd>lua require('telescope.builtin').file_browser()<CR>]], opt)
+vim.api.nvim_set_keymap('n', '<Leader>fc', [[<Cmd>lua require('telescope.builtin').commands()<CR>]], opt)
 vim.api.nvim_set_keymap('n', '<Leader>fm', [[<Cmd> Neoformat<CR>]], opt)
 

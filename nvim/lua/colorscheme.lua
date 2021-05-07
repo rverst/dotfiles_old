@@ -16,6 +16,8 @@ vim.cmd('hi clear CursorLine')
 -- *nocombine* *strikethrough*
 
 local ubi = 'underline,bold,italic'
+local ucl = 'undercurl'
+local uli = 'underline'
 
 
 --           'Group'                        Foreground          Background          Decorations         SP Color
@@ -35,6 +37,11 @@ fn.highlight('Pmenu',                       nil,                c.dark2,        
 fn.highlight('PmenuSel',                    c.orange_light,     c.dark3,            nil,                nil)
 
 fn.highlight('IndentBlanklineChar',         c.dark2,            nil,                nil,                nil)
+
+fn.highlight('SpellBad',                    nil,                c.none,             uli,                c.red_error)
+fn.highlight('SpellCap',                    nil,                c.black,            uli,                c.white)
+fn.highlight('SpellLocal',                  nil,                nil,                ucl,                c.blue)
+fn.highlight('SpellRare',                   nil,                nil,                ucl,                c.magenta)
 
 fn.highlight('GitSignsAdd',                 c.green,            c.none,             none,               nil)
 fn.highlight('GitSignsChange',              c.yellow,           c.none,             none,               nil)
