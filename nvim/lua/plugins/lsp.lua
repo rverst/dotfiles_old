@@ -50,6 +50,7 @@ local on_attach = function(client, bufnr)
 end
 
 local v = require('utils.vars')
+local fn = require('utils.fn')
 local lspconfig = require('lspconfig')
 local servers = { 'gopls', 'clangd' }
 
@@ -59,66 +60,62 @@ end
 
 -- sumneko settings
 local xdg_data = os.getenv('XDG_DATA_HOME')
-local sys = v.os
 local sumneko_root = nil
--- ToDo: introduce join-path method in utils
-local pathsep = "/"
-if sys == OS.Windows  then
-    pathsep = "\\"
-end
 
 if xdg_data ~= nil then
-    sumneko_root = xdg_data .. pathsep .. 'lua-language-server'
+  sumneko_root = fn.joinPath(xdg_data, 'lua-language-server')
 end
 
 if vim.fn.empty(vim.fn.glob(sumneko_root)) > 0 then
-    sumneko_root = os.getenv('SUMNEKO')
+  sumneko_root = os.getenv('SUMNEKO')
 end
 
 
 if sumneko_root == nil then
-    print('sumneko root not found')
-    return
+  print('sumneko root not found')
+  return
 end
 
-
-local sumneko_bin = ''
-if sys == OS.MacOs then
-    sumneko_bin = sumneko_root .. '/bin/macos/lua-language-server'
-elseif sys == OS.Linux or os == OS.WSL then
-    sumneko_bin = sumneko_root .. '/bin/Linux/lua-language-server'
-elseif sys == OS.Windows then
-    sumneko_bin = sumneko_root .. '\\bin\\Windows\\lua-language-server.exe'
+local os
+local bin = 'lua-language-server'
+if v.isMacOs then
+  os = 'macos'
+elseif v.isLinux or v.isWsl then
+  os = 'Linux'
+elseif v.isWindows then
+  os = 'Windows'
+  bin = bin..'.exe'
 end
 
+local sumneko_bin = fn.joinPath(sumneko_root, 'bin', os, bin)
 if vim.fn.empty(vim.fn.glob(sumneko_bin)) > 0 then
     return
 end
 
 lspconfig.sumneko_lua.setup {
-    cmd = {sumneko_bin, '-E', sumneko_root .. pathsep .. 'main.lua'},
-    root_dir = function()
-        return vim.loop.cwd()
-    end,
-    settings = {
-            Lua = {
-                runtime = {
-                    version = 'LuaJIT',
-                    path = vim.split(package.path, ';')
-                },
-                diagnostics = {
-                    globals = {'vim'}
-                },
-                workspace = {
-                    library = {
-                        [vim.fn.expand('$VIMRUNTIME/lua')] = true,
-                        [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true
-                    }
-                },
-                telemetry = {
-                    enable = false
-                }
-            }
-        },
-        on_attach = on_attach
+  cmd = {sumneko_bin, '-E', fn.joinPath(sumneko_root, 'main.lua')},
+  root_dir = function()
+    return vim.loop.cwd()
+  end,
+  settings = {
+    Lua = {
+      runtime = {
+        version = 'LuaJIT',
+        path = vim.split(package.path, ';')
+      },
+      diagnostics = {
+        globals = {'vim'}
+      },
+      workspace = {
+        library = {
+          [vim.fn.expand('$VIMRUNTIME/lua')] = true,
+          [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true
+        }
+      },
+      telemetry = {
+        enable = false
+      }
     }
+  },
+  on_attach = on_attach
+}

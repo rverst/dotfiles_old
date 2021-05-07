@@ -1,5 +1,3 @@
-local utils = require('utils')
-local fn = require('utils.fn')
 local v = require('utils.vars')
 
 local cmdheight = 2
@@ -10,40 +8,47 @@ vim.cmd('syntax enable')
 vim.cmd('syntax on')
 vim.cmd('filetype plugin indent on')
 
-utils.opt('o', 'updatetime', 250)
-utils.opt('o', 'cmdheight', cmdheight)
-utils.opt('o', 'winheight', cmdheight)
-utils.opt('o', 'winminheight', cmdheight)
-utils.opt('o', 'winminwidth', cmdheight*2)
-utils.opt('o', 'ignorecase', true)
-utils.opt('o', 'smartcase', true)
-utils.opt('o', 'shiftround', true)
-utils.opt('o', 'splitbelow', true)
-utils.opt('o', 'splitright', true)
-utils.opt('o', 'showmode', false)
-utils.opt('o', 'termguicolors', true)
-utils.opt('o', 'scrolloff', scrolloff)
-utils.opt('o', 'completeopt', 'menuone,noselect')
-utils.opt('o', 'wildmode', 'longest:list:full')
-utils.opt('o', 'shortmess', 'filnxtToOFc')
+vim.o.updatetime = 250
+vim.o.cmdheight = cmdheight
+vim.o.winheight = cmdheight
+vim.o.winminheight = cmdheight
+vim.o.winminwidth = cmdheight*2
+vim.o.ignorecase = true
+vim.o.smartcase = true
+vim.o.shiftround = true
+vim.o.splitbelow = true
+vim.o.splitright = true
+vim.o.showmode = false
+vim.o.termguicolors = true
+vim.o.scrolloff = scrolloff
+vim.o.completeopt = 'menuone,noselect'
+vim.o.wildmode = 'longest:list:full'
+vim.o.shortmess = vim.o.shortmess..'c'
 
-utils.opt('o', 'hidden', true)
-utils.opt('o', 'backup', false)
-utils.opt('o', 'undodir', v.undoDir)
-utils.opt('o', 'undofile', true)
+vim.o.hidden = true
+vim.o.backup = false
+vim.o.undodir = v.undoDir
+vim.o.undofile = true
 
-utils.opt('o', 'mouse', 'nv')
+vim.o.mouse = 'nv'
 
-utils.opt('b', 'swapfile', false)
-utils.opt('b', 'expandtab', true)
-utils.opt('b', 'smartindent', true)
-utils.opt('b', 'shiftwidth', indent)
-utils.opt('b', 'tabstop', indent)
+vim.b.swapfile = false
+vim.bo.swapfile = false
 
-utils.opt('w', 'number', true)
-utils.opt('w', 'relativenumber', true)
-utils.opt('o', 'numberwidth', 3)
-utils.opt('w', 'signcolumn', 'yes:2')
+vim.b.expandtab = true
+vim.bo.expandtab = true
+vim.b.smartindent = true
+vim.bo.smartindent = true
+vim.b.tabstop = indent
+vim.bo.tabstop = indent
+vim.b.shiftwidth = indent
+vim.bo.shiftwidth = indent
+
+vim.o.numberwidth = 3
+vim.wo.number = true
+vim.wo.relativenumber = true
+vim.wo.signcolumn = 'yes:2'
+vim.wo.wrap = false
 
 local clipName
 local clipProvCopy

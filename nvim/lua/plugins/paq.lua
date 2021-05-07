@@ -18,7 +18,6 @@ p.paq 'nvim-telescope/telescope.nvim'
 p.paq 'nvim-lua/lsp_extensions.nvim'
 p.paq 'nvim-lua/popup.nvim'
 p.paq 'nvim-lua/plenary.nvim'
-p.paq 'kabouzeid/nvim-lspinstall'
 p.paq 'glepnir/lspsaga.nvim'
 
 p.paq {'nvim-treesitter/nvim-treesitter', run='TSUpdate'}

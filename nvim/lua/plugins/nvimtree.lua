@@ -1,4 +1,3 @@
-local c = vim.cmd
 local g = vim.g
 
 vim.o.termguicolors = true
@@ -25,9 +24,9 @@ g.nvim_tree_special_files = { 'README.md', 'Makefile', 'MAKEFILE' } -- List of f
 g.nvim_tree_ignore = { '.git', 'node_modules', '.cache' }           -- empty by default
 g.nvim_tree_auto_ignore_ft = { 'startify', 'dashboard' }            -- empty by default, don't auto open tree on specific filetypes.
 g.nvim_tree_show_icons = {
-    git = 1,
-    folders = 1,
-    files = 1,
+	git = 1,
+	folders = 1,
+	files = 1,
 }
 g.nvim_tree_icons = {
     default = '',
@@ -103,7 +102,6 @@ g.nvim_tree_bindings = {
 
 -- NvimTreeSymlink
 -- NvimTreeFolderName
-c('hi NvimTreeRootFolder guifg=#bfbfbf')
 -- NvimTreeFolderIcon
 -- NvimTreeEmptyFolderName
 -- NvimTreeOpenedFolderName
@@ -112,7 +110,6 @@ c('hi NvimTreeRootFolder guifg=#bfbfbf')
 -- NvimTreeSpecialFile
 -- NvimTreeImageFile
 -- NvimTreeMarkdownFile
-c('hi NvimTreeIndentMarker guifg=#2a2e36')
 
 -- LspDiagnosticsError
 -- LspDiagnosticsWarning

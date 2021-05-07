@@ -6,6 +6,7 @@ local none = 'none'
 base16(vim.g.mytheme, true)
 --base16(base16.themes['gruvbox-dark-pale'], true)
 
+vim.o.background = 'dark'
 vim.cmd('hi clear CursorLine')
 
 -- Available decorations
