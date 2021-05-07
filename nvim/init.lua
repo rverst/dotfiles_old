@@ -11,6 +11,7 @@
 --]]
 
 local g = vim.g
+local v = require('utils.vars')
 
 -- leaderkey is space, set this early so it's get respected
 g.mapleader = ' '
@@ -36,7 +37,6 @@ require('plugins.lsp')
 require('plugins.lspsaga')
 require('plugins.compe')
 
-
 --require('plugins.indentline')
 require('plugins.treesitter')
 
@@ -53,3 +53,4 @@ require('plugins.snippets')
 require('colorscheme')
 require('autocmds')
 
+print(v.os)

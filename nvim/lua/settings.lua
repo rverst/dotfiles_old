@@ -1,15 +1,14 @@
 local utils = require('utils')
-local cmd = vim.cmd
-local fn = vim.fn
+local fn = require('utils.fn')
+local v = require('utils.vars')
 
 local cmdheight = 2
 local indent = 2
 local scrolloff = 8
-local undoDir = fn.stdpath('cache') .. '/undo'
 
-cmd 'syntax enable'
-cmd 'syntax on'
-cmd 'filetype plugin indent on'
+vim.cmd('syntax enable')
+vim.cmd('syntax on')
+vim.cmd('filetype plugin indent on')
 
 utils.opt('o', 'updatetime', 250)
 utils.opt('o', 'cmdheight', cmdheight)
@@ -26,12 +25,11 @@ utils.opt('o', 'termguicolors', true)
 utils.opt('o', 'scrolloff', scrolloff)
 utils.opt('o', 'completeopt', 'menuone,noselect')
 utils.opt('o', 'wildmode', 'longest:list:full')
-utils.opt('o', 'clipboard', 'unnamed')
 utils.opt('o', 'shortmess', 'filnxtToOFc')
 
 utils.opt('o', 'hidden', true)
 utils.opt('o', 'backup', false)
-utils.opt('o', 'undodir', undoDir)
+utils.opt('o', 'undodir', v.undoDir)
 utils.opt('o', 'undofile', true)
 
 utils.opt('o', 'mouse', 'nv')
@@ -47,3 +45,36 @@ utils.opt('w', 'relativenumber', true)
 utils.opt('o', 'numberwidth', 3)
 utils.opt('w', 'signcolumn', 'yes:2')
 
+local clipName
+local clipProvCopy
+local clipProvPaste
+local clipCache
+
+if v.isWsl or v.isWindows then
+  clipName = 'windows-clipboard'
+  clipProvCopy = {'pbcopy.exe'}
+  clipProvPaste = {'pbpaste.exe', '--lf'}
+  clipCache = 1
+elseif v.isMacOs then
+  clipName = 'macos-clipboard'
+  clipProvCopy = {'pbcopy'}
+  clipProvPaste = {'pbpaste'}
+  clipCache = 0
+end
+
+if clipProvCopy then
+  vim.g.clipboard = {
+    name = clipName,
+    copy = {
+      ['+'] = clipProvCopy,
+      ['*'] = clipProvCopy
+    },
+    paste = {
+      ['+'] = clipProvPaste,
+      ['*'] = clipProvPaste
+    },
+    cache_enabled = clipCache
+  }
+end
+
+vim.o.clipboard = vim.o.clipboard .. 'unnamedplus'
