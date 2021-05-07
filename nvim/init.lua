@@ -27,14 +27,13 @@ require('plugins.file-icons')
 require('settings')
 
 require('plugins.gitsigns')
-require('plugins.bufferline')
-require('plugins.statusline')
 require('plugins.colorizer')
 require('plugins.neoscroll')
 
 require('plugins.lsp')
 require('plugins.lspsaga')
 require('plugins.compe')
+require('plugins.lspkind')
 
 --require('plugins.indentline')
 require('plugins.treesitter')
@@ -42,13 +41,13 @@ require('plugins.treesitter')
 require('plugins.telescope')
 require('plugins.nvimtree')
 
-require('plugins.autopairs')
-require('plugins.lspkind')
 
 require('bindings')
 require('plugins.kommentary')
 require('plugins.snippets')
 
+require('plugins.bufferline')
+require('plugins.statusline')
 require('colorscheme')
 require('autocmds')
 

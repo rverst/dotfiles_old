@@ -83,20 +83,19 @@ local linePercent = function()
 end
 
 local lspActive = function()
-  local c = require('galaxyline/provider_lsp').get_lsp_client()
-  return c ~= 'No Active Lsp'
+  local client = require('galaxyline/provider_lsp').get_lsp_client()
+  return client ~= 'No Active Lsp'
 end
 
 local lspClient = function()
   return function()
-    local c = require('galaxyline/provider_lsp').get_lsp_client()
-    print(c)
-    if c == 'No Active Lsp' then
+    local client = require('galaxyline/provider_lsp').get_lsp_client()
+    if client == 'No Active Lsp' then
       return 'n/a'
-    elseif c == 'sumneko_lua' then
+    elseif client == 'sumneko_lua' then
       return 'lua'
     end
-    return c
+    return client
   end
 end
 
@@ -111,7 +110,6 @@ end
 local bufferType = function()
   return vim.bo.filetype:lower()
 end
-
 
 local negated = function(f)
     return function() return not f() end

@@ -15,20 +15,26 @@ vim.cmd('hi clear CursorLine')
 -- *inverse* *italic* *standout*
 -- *nocombine* *strikethrough*
 
+local ubi = 'underline,bold,italic'
+
+
 --           'Group'                        Foreground          Background          Decorations         SP Color
 fn.highlight('Normal',                      nil,                c.none,             nil,                nil)
 fn.highlight('LineNr',                      nil,                c.none,             nil,                nil)
 fn.highlight('SignColumn',                  nil,                c.none,             nil,                nil)
+
+fn.highlight('Todo',                        c.yellow,           c.none,             ubi,                nil)
+fn.highlight('Fixme',                       c.red,              c.none,             ubi,                nil)
 
 fn.highlight('CursorLineNR',                c.yellow,           c.none,             none,               nil)
 
 fn.highlight('VertSplit',                   c.border,           c.none,             nil,                nil)
 
 fn.highlight('EndOfBuffer',                 c.bg,               c.none,             nil,                nil)
-fn.highlight('Pmenu',                       nil,                c.none,             nil,                nil)
-fn.highlight('PmenuSel',                    c.border,           c.none,             nil,                nil)
+fn.highlight('Pmenu',                       nil,                c.dark2,            nil,                nil)
+fn.highlight('PmenuSel',                    c.orange_light,     c.dark3,            nil,                nil)
 
-fn.highlight('IndentBlanklineChar',         c.dark2,            nil,                nil,               nil)
+fn.highlight('IndentBlanklineChar',         c.dark2,            nil,                nil,                nil)
 
 fn.highlight('GitSignsAdd',                 c.green,            c.none,             none,               nil)
 fn.highlight('GitSignsChange',              c.yellow,           c.none,             none,               nil)

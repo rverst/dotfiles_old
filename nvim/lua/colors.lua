@@ -1,4 +1,3 @@
-local utils = require('utils')
 local fn = require('utils.fn')
 
 local function calcColors(hex)

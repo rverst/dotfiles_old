@@ -2,7 +2,8 @@ local v = require('utils.vars')
 
 local cmdheight = 2
 local indent = 2
-local scrolloff = 8
+local vScrolloff = 4
+local hScrolloff = 10
 
 vim.cmd('syntax enable')
 vim.cmd('syntax on')
@@ -15,20 +16,25 @@ vim.o.winminheight = cmdheight
 vim.o.winminwidth = cmdheight*2
 vim.o.ignorecase = true
 vim.o.smartcase = true
+vim.o.hidden = true
+vim.o.backup = false
 vim.o.shiftround = true
 vim.o.splitbelow = true
 vim.o.splitright = true
 vim.o.showmode = false
 vim.o.termguicolors = true
-vim.o.scrolloff = scrolloff
+vim.o.scrolloff = hScrolloff
+vim.o.sidescrolloff = vScrolloff
+vim.o.fileformats='unix,mac,dos'
 vim.o.completeopt = 'menuone,noselect'
 vim.o.wildmode = 'longest:list:full'
 vim.o.shortmess = vim.o.shortmess..'c'
+vim.o.spellsuggest='fast,12'
+vim.o.spelloptions='camel'
 
-vim.o.hidden = true
-vim.o.backup = false
 vim.o.undodir = v.undoDir
 vim.o.undofile = true
+vim.bo.undofile = true
 
 vim.o.mouse = 'nv'
 

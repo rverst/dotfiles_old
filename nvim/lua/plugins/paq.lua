@@ -32,6 +32,7 @@ p.paq 'lewis6991/gitsigns.nvim'
 p.paq 'akinsho/nvim-bufferline.lua'
 p.paq 'glepnir/galaxyline.nvim'
 p.paq 'windwp/nvim-autopairs'
+p.paq 'windwp/nvim-ts-autotag'
 p.paq 'alvan/vim-closetag'
 
 p.paq 'kyazdani42/nvim-tree.lua'
